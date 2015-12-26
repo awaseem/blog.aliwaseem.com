@@ -1,7 +1,8 @@
 import React from 'react';
 import director from "director";
-import token from "../lib/tokenStorage";
 import About from "./About";
+import Signin from "./admin/signin";
+import { checkAuth } from "../lib/auth";
 
 export default React.createClass({
 
@@ -10,6 +11,7 @@ export default React.createClass({
     },
 
     componentDidMount: function() {
+
         var router = director.Router({
             "/": {
                 on: () => {
@@ -22,10 +24,11 @@ export default React.createClass({
                 }
             }
         });
+
         var adminRouter = director.Router({
             "/admin": {
                 "/signin": () => {
-                    this.setState({ currentView: <div>Please sign in!</div> });
+                    this.setState({ currentView: <Signin/> });
                 },
                 "/test": () => {
                     this.setState({ currentView: <div>you should not see this</div>});
@@ -36,11 +39,12 @@ export default React.createClass({
             }
         }).configure({
             before: () => {
-                if (!token.getToken()) {
-                    router.setRoute("admin/signin");
+                if (!checkAuth()) {
+                    director.Router().setRoute("admin/signin");
                 }
             }
         });
+
         adminRouter.init();
         router.init("/");
     },

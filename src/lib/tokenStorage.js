@@ -1,14 +1,17 @@
-let token = "";
-
-let getToken = function () {
-    return token;
+let setToken = (tokenString) => {
+    localStorage.setItem("blog-admin", tokenString);
 };
 
-let setToken = function (value) {
-    token = value;
+let getToken = () => {
+    return localStorage.getItem("blog-admin");
+};
+
+let deleteToken = () => {
+    localStorage.removeItem("blog-admin");
 };
 
 export default {
     getToken: getToken,
-    setToken: setToken
+    setToken: setToken,
+    deleteToken: deleteToken
 };

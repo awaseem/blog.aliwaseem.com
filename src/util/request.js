@@ -1,5 +1,5 @@
 let statusMiddleware = (response) => {
-    if (response.status >= 200 && response.status < 300) {
+    if (response.ok) {
         return response;
     } else {
         let error = new Error(response.statusText);
@@ -18,7 +18,7 @@ let post = (url, jsonData, Auth) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            "Authorization": Auth
+            "Authorization": Auth ? Auth : ""
         },
         body: JSON.stringify(jsonData)
     })
