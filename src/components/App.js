@@ -2,6 +2,8 @@ import React from 'react';
 import director from "director";
 import About from "./About";
 import Signin from "./admin/signin";
+import Dashboard from "./admin/dashboard";
+import Create from "./admin/create";
 import { checkAuth } from "../lib/auth";
 
 export default React.createClass({
@@ -11,11 +13,10 @@ export default React.createClass({
     },
 
     componentDidMount: function() {
-
-        var router = director.Router({
+        let router = director.Router({
             "/": {
                 on: () => {
-                    this.setState({ currentView: <div>Hello world! <a href="#/about">About</a></div>});
+                    this.setState({ currentView: <div>Hello world! this is a test <a href="#/about">About</a></div>});
                 }
             },
             "/about": {
@@ -25,16 +26,16 @@ export default React.createClass({
             }
         });
 
-        var adminRouter = director.Router({
+        let adminRouter = director.Router({
             "/admin": {
                 "/signin": () => {
                     this.setState({ currentView: <Signin/> });
                 },
-                "/test": () => {
-                    this.setState({ currentView: <div>you should not see this</div>});
+                "/create": () => {
+                    this.setState({ currentView: checkAuth() ? <Create/> : <noscript/> });
                 },
                 on: () => {
-                    this.setState({ currentView: <About/>});
+                    this.setState({ currentView: checkAuth() ? <Dashboard/> : <noscript/> });
                 }
             }
         }).configure({

@@ -36,6 +36,7 @@
     "history": "~1.13.x",
     "jquery": "^2.1.4",
     "jwt-decode": "^1.4.0",
+    "marked": "^0.3.5",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },

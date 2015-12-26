@@ -24,5 +24,8 @@ let login = (username, password) => {
     });
 };
 
+let logout = () => {
+    return tokenStorage.deleteToken();
+};
 
-export { login, checkAuth };
+export { login, checkAuth, logout };

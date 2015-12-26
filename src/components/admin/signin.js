@@ -15,7 +15,8 @@ export default React.createClass({
         };
     },
 
-    handleLogin: function () {
+    handleLogin: function (e) {
+        e.preventDefault();
         // Reset error state when clicked
         this.setState({
             error: {
