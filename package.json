@@ -34,6 +34,7 @@
   "dependencies": {
     "director": "^1.2.8",
     "history": "~1.13.x",
+    "jquery": "^2.1.4",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },
