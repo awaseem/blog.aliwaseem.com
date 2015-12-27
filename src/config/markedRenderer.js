@@ -36,8 +36,47 @@ let getMod = (message) => {
     }
 };
 
+let getModImage = (message) => {
+    let mod = "";
+    let re = /{([a-z]+)}/g;
+    let modMatch = re.exec(message);
+    if (modMatch !== null) {
+        switch (modMatch[1]) {
+            case "small":
+                mod = "small";
+                message = message.replace(/{([a-z]+)}/g, "");
+                break;
+            case "medium":
+                mod = "medium";
+                message = message.replace(/{([a-z]+)}/g, "");
+                break;
+            case "large":
+                mod = "large";
+                message = message.replace(/{([a-z]+)}/g, "");
+                break;
+            case "fluid":
+                mod = "fluid";
+                message = message.replace(/{([a-z]+)}/g, "");
+                break;
+            default:
+                mod = "fluid";
+        }
+        return {
+            mod: mod,
+            message: message
+        };
+    }
+    else {
+        return {
+            mod: mod,
+            message: message
+        };
+    }
+};
+
 renderer.image = (href, title, text) => {
-    return `<img class="ui centered medium image" src=${href}></img>`;
+    let alterText = getModImage(text);
+    return `<img class="ui centered ${alterText.mod} rounded image" src=${href}></img>`;
 };
 
 renderer.heading = (text, level) => {

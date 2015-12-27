@@ -52,3 +52,23 @@ blockquote {
 blockquote p {
   line-height: inherit;
 }
+
+/*--------------
+     Code
+---------------*/
+
+.blog-content p {
+    margin-top: 40px;
+}
+
+.blog-content img {
+    margin-top: 40px;
+}
+
+.blog-content blockquote {
+    margin-top: 40px;
+}
+
+.blog-content pre {
+    margin-top: 40px;
+}

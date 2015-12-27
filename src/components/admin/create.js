@@ -1,5 +1,6 @@
 import marked from "marked";
 import React from "react";
+import director from "director";
 import renderer from "../../config/markedRenderer";
 
 marked.setOptions({
@@ -25,18 +26,40 @@ export default React.createClass({
         });
     },
 
+    componentDidMount: function () {
+        $('.menu .item')
+          .tab()
+        ;
+    },
+
+    backButtonAction: function () {
+        director.Router().setRoute("/admin");
+    },
+
     render: function () {
         return (
-            <div id="item-content" className="ui vertical stripe segment">
-            <div className="ui grid text container">
-                <div className="row">
-                    <div dangerouslySetInnerHTML={{__html: this.state.text}}>
+            <div className="ui container">
+                <div className="ui top attached tabular secondary pointing menu">
+                    <a className="item" data-tab="first">Preview</a>
+                    <a className="item active" data-tab="second">Edit</a>
+                    <a className="item" data-tab="third">Help</a>
+                </div>
+                <div className="ui bottom attached tab segment" data-tab="first">
+                    <div className="ui text container">
+                        <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}>
+                        </div>
                     </div>
                 </div>
-                <div className="row">
-                    <textarea style={{ width: "100%" }} rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
+                <div className="ui bottom attached tab segment active" data-tab="second">
+                    <textarea style={{ width: "100%", marginBottom: "25px" }} rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
+                    <button className="ui green button">Save</button>
+                    <button onClick={this.backButtonAction} className="ui red button">Back</button>
                 </div>
-            </div>
+                <div className="ui bottom attached tab segment" data-tab="third">
+                    <div className="ui container">
+                        This is a test
+                    </div>
+                </div>
             </div>
         );
     }
