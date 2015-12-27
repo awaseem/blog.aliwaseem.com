@@ -1,16 +1,15 @@
 import marked from "marked";
 import React from "react";
-
-let renderer = new marked.Renderer();
+import renderer from "../../config/markedRenderer";
 
 marked.setOptions({
     renderer: renderer,
+    gfm: true,
+    breaks: true,
+    highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
 });
-
-renderer.image = (href, title, text) => {
-    console.log(href);
-    return `<img class="ui centered large image" src=${href} ></img>`;
-};
 
 export default React.createClass({
 
@@ -28,20 +27,16 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div>
-                <div className="container">
-                    <div className="ui grid">
-                        <div className="two column row">
-                            <div className="column">
-                                <textarea style={{ width: "100vh", height: "100vh", resize: "none" }} onChange={this.convertToMarkdown} ref="textarea"/>
-                            </div>
-                            <div className="column">
-                                <div className="ui container" dangerouslySetInnerHTML={{__html: this.state.text}}>
-                                </div>
-                            </div>
-                        </div>
+            <div id="item-content" className="ui vertical stripe segment">
+            <div className="ui grid text container">
+                <div className="row">
+                    <div dangerouslySetInnerHTML={{__html: this.state.text}}>
                     </div>
                 </div>
+                <div className="row">
+                    <textarea style={{ width: "100%" }} rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
+                </div>
+            </div>
             </div>
         );
     }
