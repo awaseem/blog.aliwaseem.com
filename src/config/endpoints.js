@@ -1,4 +1,4 @@
-let baseURL = "http://192.168.99.100:8080/api";
+let baseURL = "http://localhost:8080/api";
 
 export default {
 

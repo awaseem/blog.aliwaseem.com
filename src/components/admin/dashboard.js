@@ -13,9 +13,14 @@ export default React.createClass({
         director.Router().setRoute("/admin/create");
     },
 
+    componentDidMount: function () {
+        $('#dashboard')
+            .transition('fade in');
+    },
+
     render: function () {
         return (
-            <div>
+            <div id="dashboard">
                 <h1>Welcome to the dashboard!!</h1>
                 <button onClick={this.create} className="ui blue button">Create</button>
                 <button onClick={this.logout} className="ui red button">Logout</button>

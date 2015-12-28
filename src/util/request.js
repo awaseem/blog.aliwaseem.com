@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 let statusMiddleware = (response) => {
     if (response.ok) {
         return response;
@@ -12,13 +14,26 @@ let jsonResponseMiddleware = (response) => {
     return response.json();
 };
 
-let post = (url, jsonData, Auth) => {
+let get = (url, jsonData) => {
+    let urlQuery = jsonData ? $.param(jsonData) : "";
+    url = url + "?" + urlQuery;
+    return fetch(url, {
+        method: "get",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(statusMiddleware)
+        .then(jsonResponseMiddleware);
+};
+
+let post = (url, jsonData) => {
     return fetch(url, {
         method: "post",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            "Authorization": Auth ? Auth : ""
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(jsonData)
     })
@@ -26,4 +41,17 @@ let post = (url, jsonData, Auth) => {
         .then(jsonResponseMiddleware);
 };
 
-export { post };
+let put = (url, jsonData) => {
+    return fetch(url, {
+        method: "put",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    })
+        .then(statusMiddleware)
+        .then(jsonResponseMiddleware);
+};
+
+export { get, post, put };
