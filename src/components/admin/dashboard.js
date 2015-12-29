@@ -10,7 +10,7 @@ export default React.createClass({
     getInitialState: function () {
         return {
             blogs: [],
-            lastDate: "",
+            date: "",
             error: "",
             noMoreBlogs: true
         };
@@ -63,15 +63,17 @@ export default React.createClass({
         });
         return (
             <div id="dashboard" className="ui center aligned container">
-                <h1>Welcome to the dashboard!!</h1>
+                <h1>Welcome</h1>
                 <button onClick={this.create} className="ui blue button">Create</button>
                 <button onClick={this.logout} className="ui red button">Logout</button>
                 <h1>All Blog Posts</h1>
                 <div className="ui three column stackable grid">
                     {blogItems}
+                    <div className="centered row">
+                        { this.state.noMoreBlogs ? <noscript/> : <button className="ui button" onClick={this.getBlogsFromServer}>Load More</button> }
+                    </div>
                 </div>
                 <br/>
-                { this.state.noMoreBlogs ? <noscript/> : <button className="ui button" onClick={this.getBlogsFromServer}>Load More</button> }
                 { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
             </div>
         );

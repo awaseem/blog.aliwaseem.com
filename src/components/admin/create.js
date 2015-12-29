@@ -111,7 +111,7 @@ export default React.createClass({
     },
 
     backButtonAction: function () {
-        director.Router().setRoute("/admin");
+        director.Router().setRoute("/admin/dashboard");
     },
 
     render: function () {

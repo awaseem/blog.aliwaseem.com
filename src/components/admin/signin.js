@@ -15,6 +15,11 @@ export default React.createClass({
         };
     },
 
+    componentDidMount: function () {
+        $('#signin')
+            .transition('fly down in');
+    },
+
     handleLogin: function (e) {
         e.preventDefault();
         // Reset error state when clicked
@@ -56,7 +61,7 @@ export default React.createClass({
         login(username, password)
             .then((data) => {
                 token.setToken(data.token);
-                director.Router().setRoute("/admin");
+                director.Router().setRoute("/admin/dashboard");
             })
             .catch((err) => {
                 if (err.response) {
@@ -83,21 +88,28 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div>
-                <form className="ui form error" onSubmit={this.handleLogin}>
-                    <div className="field">
-                        <label>Username</label>
-                        <input type="text" ref="username"/>
+            <div id="signin" className="ui container">
+                <div className="ui three column centered grid container">
+                    <div className="row"/>
+                    <div className="row"/>
+                    <div className="center aligned row">Welcome Back!</div>
+                    <div className="column">
+                        <form className="ui form error" onSubmit={this.handleLogin}>
+                            <div className="field">
+                                <label>Username</label>
+                                <input type="text" ref="username"/>
+                            </div>
+                            <div className="field">
+                                <label>Password</label>
+                                <input type="password" ref="password"/>
+                            </div>
+                            <div className="field">
+                                <button className="ui teal button" type="submit">Login</button>
+                            </div>
+                            { this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }
+                        </form>
                     </div>
-                    <div className="field">
-                        <label>Password</label>
-                        <input type="password" ref="password"/>
-                    </div>
-                    <div className="field">
-                        <button className="ui button" type="submit">Login</button>
-                    </div>
-                    { this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }
-                </form>
+                </div>
             </div>
         );
     }
