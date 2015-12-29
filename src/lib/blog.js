@@ -1,10 +1,11 @@
 import tokenStorage from "./tokenStorage";
 import endpoints from "../config/endpoints";
-import { get, post, put } from "../util/request";
+import { get, post, put, remove } from "../util/request";
 
-let getBlogs = () => {
+let getBlogs = (date) => {
     return get(endpoints.blog, {
-        group: "test"
+        group: "test",
+        date: date
     });
 };
 
@@ -29,4 +30,11 @@ let updateBlog = (id, heading, body) => {
     });
 };
 
-export { getBlogs, getBlog, saveBlog, updateBlog };
+let removeBlog = (id) => {
+    return remove(endpoints.blog, {
+        token: tokenStorage.getToken(),
+        id: id
+    });
+};
+
+export { getBlogs, getBlog, saveBlog, updateBlog, removeBlog };

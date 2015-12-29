@@ -1,9 +1,10 @@
 import marked from "marked";
 import React from "react";
 import director from "director";
-import { getBlogs, getBlog, saveBlog, updateBlog } from "../../lib/blog";
+import { getBlog, saveBlog, updateBlog } from "../../lib/blog";
 import renderer from "../../config/markedRenderer";
 import ErrorMessage from "../messages/error";
+import SuccessMessage from "../messages/success";
 
 marked.setOptions({
     renderer: renderer,
@@ -19,9 +20,9 @@ export default React.createClass({
     getInitialState: function () {
         return {
             editId: this.props.editId,
-            editData: this.props.editData,
             error: "",
-            text: ""
+            text: "",
+            success: ""
         };
     },
 
@@ -33,7 +34,16 @@ export default React.createClass({
 
     componentDidMount: function () {
         if (this.state.editId) {
-            this.ref.textarea.value = this.state.editData;
+            getBlog(this.state.editId)
+                .then((data) => {
+                    this.refs.textarea.value = data.body;
+                    this.convertToMarkdown();
+                })
+                .catch((data) => {
+                    this.setState({
+                        error: "Failed to obtain blog for editing"
+                    });
+                });
         }
         $('#marked-editor')
             .transition('fade in');
@@ -42,14 +52,12 @@ export default React.createClass({
         ;
     },
 
-    componentWillUnmount: function () {
-
-    },
-
     updateExistBlog: function () {
         updateBlog(this.state.editId ,"test heading", this.refs.textarea.value)
             .then((data) => {
-                console.log(data);
+                this.setState({
+                    success: "Sucessfully saved blog!"
+                });
             })
             .catch((err) => {
                 if (err.response) {
@@ -71,9 +79,9 @@ export default React.createClass({
     saveNewBlog: function () {
         saveBlog("test heading", this.refs.textarea.value)
             .then((data) => {
-                console.log(data);
                 this.setState({
-                    editId: data.data._id
+                    editId: data.data._id,
+                    success: "Added blog to database!"
                 });
             })
             .catch((err) => {
@@ -121,10 +129,11 @@ export default React.createClass({
                     </div>
                 </div>
                 <div className="ui bottom attached tab segment active" data-tab="second">
+                    { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
+                    { this.state.success ? <SuccessMessage successMessage={this.state.success}/>: <noscript/>}
                     <textarea id="test-text" style={{ width: "100%", marginBottom: "25px" }} rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
                     <button onClick={this.saveButtonAction} className="ui green button">Save</button>
                     <button onClick={this.backButtonAction} className="ui red button">Back</button>
-                    { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
                 </div>
                 <div className="ui bottom attached tab segment" data-tab="third">
                     <div className="ui container">

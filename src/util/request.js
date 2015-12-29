@@ -54,4 +54,17 @@ let put = (url, jsonData) => {
         .then(jsonResponseMiddleware);
 };
 
-export { get, post, put };
+let remove = (url, jsonData) => {
+    return fetch(url, {
+        method: "delete",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    })
+        .then(statusMiddleware)
+        .then(jsonResponseMiddleware);
+};
+
+export { get, post, put, remove };

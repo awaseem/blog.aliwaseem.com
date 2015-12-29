@@ -34,6 +34,9 @@ export default React.createClass({
                 "/create": () => {
                     this.setState({ currentView: checkAuth() ? <Create/> : <noscript/> });
                 },
+                "/create/:id": (id) => {
+                    this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <noscript/> });
+                },
                 on: () => {
                     this.setState({ currentView: checkAuth() ? <Dashboard/> : <noscript/> });
                 }
