@@ -2,6 +2,7 @@ import React from 'react';
 import { getBlogs } from "../../lib/blog";
 import BlogItem from "./blogHomeItem";
 import Header from "./header";
+import ErrorMessage from "../messages/error";
 
 export default React.createClass({
 
@@ -15,7 +16,7 @@ export default React.createClass({
     },
 
     getBlogsFromServer: function (animation) {
-        getBlogs(this.state.date)
+        getBlogs(this.state.date, true)
             .then((blogs) => {
                 if (blogs.length !== 0) {
                     if (animation === true) {
@@ -68,6 +69,7 @@ export default React.createClass({
                         <div className="row">
                             <div className="center aligned column">
                             { this.state.noMoreBlogs ? <noscript/> : <button className="ui blue basic button" onClick={this.getBlogsFromServer}>Load More</button> }
+                            { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
                             </div>
                         </div>
                     </div>

@@ -59,7 +59,7 @@ export default React.createClass({
 
     render: function () {
         let blogItems = this.state.blogs.map((blogItem) => {
-            return <BlogItem key={blogItem._id} blogId={blogItem._id} blogHeading={blogItem.heading}/>;
+            return <BlogItem key={blogItem._id} blogId={blogItem._id} blogHeading={blogItem.heading} blogPublished={blogItem.published}/>;
         });
         return (
             <div id="dashboard" className="ui center aligned container">

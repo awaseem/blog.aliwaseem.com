@@ -17,7 +17,7 @@ export default React.createClass({
 
     componentDidMount: function() {
         let router = director.Router({
-            "/": {
+            "/home": {
                 on: () => {
                     this.setState({ currentView: <Posts/> });
                 }
@@ -32,41 +32,29 @@ export default React.createClass({
                     this.setState({ currentView: <About/> });
                 }
             },
-            "/.*": () => {
-                console.log("world");
-                this.setState({ currentView: <div>404</div> });
-            }
-        });
-
-        let adminRouter = director.Router({
             "/admin": {
                 "/signin": () => {
-                    console.log("hello");
                     this.setState({ currentView: <Signin/> });
                 },
                 "/create": () => {
-                    this.setState({ currentView: checkAuth() ? <Create/> : <noscript/> });
+                    this.setState({ currentView: checkAuth() ? <Create/> : director.Router().setRoute("admin/signin") });
                 },
                 "/create/:id": (id) => {
-                    this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <noscript/> });
+                    this.setState({ currentView: checkAuth() ? <Create editId={id}/> : director.Router().setRoute("admin/signin") });
                 },
                 "/dashboard": () => {
-                    this.setState({ currentView: checkAuth() ? <Dashboard/> : <noscript/> });
+                    this.setState({ currentView: checkAuth() ? <Dashboard/> : director.Router().setRoute("admin/signin") });
                 },
                 on: () => {
-                    this.setState({ currentView: checkAuth() ? <Dashboard/> : <noscript/> });
+                    this.setState({ currentView: checkAuth() ? <Dashboard/> : director.Router().setRoute("admin/signin") });
                 }
-            }
-        }).configure({
-            before: () => {
-                if (!checkAuth()) {
-                    director.Router().setRoute("admin/signin");
-                }
-            }
+            },
+            "/.*": () => {
+                this.setState({ currentView: <div>404</div> });
+            },
         });
 
-        adminRouter.init();
-        router.init("/");
+        router.init("/home");
     },
 
     render: function () {
