@@ -52,9 +52,11 @@ export default React.createClass({
             "/.*": () => {
                 this.setState({ currentView: <div>404</div> });
             },
+        }).configure({
+            html5history: true
         });
-
-        router.init("/home");
+        console.log(window.location);
+        router.init();
     },
 
     render: function () {
