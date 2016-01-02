@@ -20,9 +20,15 @@ export default React.createClass({
                         <h5 className="ui inverted header">A PLACE TO SHARE MY RANDOM THOUGHTS</h5>
                     </div>
                     <div className="row">
-                        <i className="github inverted big link icon"></i>
-                        <i className="browser inverted big link icon"></i>
-                        <i className="twitter inverted big link icon"></i>
+                        <a href="https://github.com/awaseem">
+                            <i className="github inverted big link icon"></i>
+                        </a>
+                        <a href="http://aliwaseem.com">
+                            <i className="browser inverted big link icon"></i>
+                        </a>
+                        <a href="https://twitter.com/waseema393">
+                            <i className="twitter inverted big link icon"></i>
+                        </a>
                     </div>
                 </div>
             </div>
