@@ -64,6 +64,7 @@ export default React.createClass({
                 director.Router().setRoute("/admin/dashboard");
             })
             .catch((err) => {
+                console.error(err);
                 if (err.response) {
                     err.response.json()
                         .then((errResponse) => {

@@ -49,8 +49,7 @@ export default React.createClass({
         $('#marked-editor')
             .transition('fade in');
         $('.menu .item')
-            .tab()
-        ;
+            .tab();
     },
 
     updateExistBlog: function () {
@@ -61,6 +60,7 @@ export default React.createClass({
                 });
             })
             .catch((err) => {
+                console.error(err);
                 if (err.response) {
                     err.response.json()
                         .then((errResponse) => {
@@ -86,6 +86,7 @@ export default React.createClass({
                 });
             })
             .catch((err) => {
+                console.error(err);
                 if (err.response) {
                     err.response.json()
                         .then((errResponse) => {

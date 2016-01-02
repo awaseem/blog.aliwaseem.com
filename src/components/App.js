@@ -1,6 +1,5 @@
 import React from 'react';
 import director from "director";
-import About from "./About";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
