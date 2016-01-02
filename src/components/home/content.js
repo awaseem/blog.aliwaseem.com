@@ -30,23 +30,11 @@ export default React.createClass({
         getBlog(this.props.id)
             .then((data) => {
                 this.setState({ text: marked(data.body), data: data });
-                let imgSelector = $("img");
-                if (imgSelector.length !== 0) {
-                    $("img").load(() => {
-                        this.setState({
-                            contentLoaded: true
-                        });
-                        $("#blog-body")
-                            .transition("fly up in");
-                    });
-                }
-                else {
-                    this.setState({
-                        contentLoaded: true
-                    });
-                    $("#blog-body")
-                        .transition("fly up in");
-                }
+                this.setState({
+                    contentLoaded: true
+                });
+                $("#blog-body")
+                    .transition("fly up in");
             })
             .catch(() => this.setState({ error: `Error: Failed to find blog post with the following id: ${this.props.id}`}));
     },
