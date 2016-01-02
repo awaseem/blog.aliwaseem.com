@@ -7,7 +7,8 @@ export default React.createClass({
         return d.toLocaleString();
     },
 
-    goToBlog: function (id) {
+    goToBlog: function (e) {
+        e.preventDefault();
         director.Router().setRoute(`blog/${this.props.blogId}`);
     },
 
@@ -15,7 +16,7 @@ export default React.createClass({
         return (
             <div className="item">
                 <div className="middle aligned content">
-                    <h3><a onClick={this.goToBlog}>{this.props.blogHeading}</a></h3>
+                    <h3><a href={ `/blog/${this.props.blogId}` } onClick={this.goToBlog}>{this.props.blogHeading}</a></h3>
                     <p><em>Date: {this.getDate()}</em></p>
                 </div>
             </div>
