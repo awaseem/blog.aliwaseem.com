@@ -36,6 +36,7 @@ export default React.createClass({
         if (this.state.editId) {
             getBlog(this.state.editId)
                 .then((data) => {
+                    this.refs.heading.value = data.heading;
                     this.refs.textarea.value = data.body;
                     this.convertToMarkdown();
                 })
@@ -53,7 +54,7 @@ export default React.createClass({
     },
 
     updateExistBlog: function () {
-        updateBlog(this.state.editId ,"test heading", this.refs.textarea.value)
+        updateBlog(this.state.editId , this.refs.heading.value ? this.refs.heading.value : "<NO HEADING>", this.refs.textarea.value)
             .then((data) => {
                 this.setState({
                     success: "Sucessfully saved blog!"
@@ -77,7 +78,7 @@ export default React.createClass({
     },
 
     saveNewBlog: function () {
-        saveBlog("test heading", this.refs.textarea.value)
+        saveBlog(this.refs.heading.value ? this.refs.heading.value : "<NO HEADING>", this.refs.textarea.value)
             .then((data) => {
                 this.setState({
                     editId: data.data._id,
@@ -120,7 +121,6 @@ export default React.createClass({
                 <div className="ui top attached tabular secondary pointing menu">
                     <a className="item" data-tab="first">Preview</a>
                     <a className="item active" data-tab="second">Edit</a>
-                    <a className="item" data-tab="third">Help</a>
                 </div>
                 <div className="ui bottom attached tab segment" data-tab="first">
                     <div className="ui text container">
@@ -131,13 +131,15 @@ export default React.createClass({
                 <div className="ui bottom attached tab segment active" data-tab="second">
                     { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
                     { this.state.success ? <SuccessMessage successMessage={this.state.success}/>: <noscript/>}
-                    <textarea id="test-text" style={{ width: "100%", marginBottom: "25px" }} rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
-                    <button onClick={this.saveButtonAction} className="ui green button">Save</button>
-                    <button onClick={this.backButtonAction} className="ui red button">Back</button>
-                </div>
-                <div className="ui bottom attached tab segment" data-tab="third">
-                    <div className="ui container">
-                        This is a test
+                    <div className="ui form">
+                        <div className="field">
+                            <input type="text" name="first-name" placeholder="Heading" ref="heading"/>
+                        </div>
+                        <div className="field">
+                            <textarea style={{ width: "100%", marginBottom: "25px" }} placeholder="Body" rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
+                        </div>
+                        <button onClick={this.saveButtonAction} className="ui green button">Save</button>
+                        <button onClick={this.backButtonAction} className="ui red button">Back</button>
                     </div>
                 </div>
             </div>

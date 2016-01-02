@@ -4,7 +4,7 @@ import { get, post, put, remove } from "../util/request";
 
 let getBlogs = (date, published) => {
     return get(endpoints.blog, {
-        group: "test",
+        group: endpoints.group,
         date: date,
         published: published
     });

@@ -21,7 +21,7 @@ export default React.createClass({
             text: "",
             data: "",
             error: "",
-            imagesLoaded: false
+            contentLoaded: false
         };
     },
 
@@ -34,7 +34,7 @@ export default React.createClass({
                 if (imgSelector.length !== 0) {
                     $("img").load(() => {
                         this.setState({
-                            imagesLoaded: true
+                            contentLoaded: true
                         });
                         $("#blog-body")
                             .transition("fly up in");
@@ -42,7 +42,7 @@ export default React.createClass({
                 }
                 else {
                     this.setState({
-                        imagesLoaded: true
+                        contentLoaded: true
                     });
                     $("#blog-body")
                         .transition("fly up in");
@@ -55,13 +55,13 @@ export default React.createClass({
         return (
             <div id="blog-body" className="column">
                 <div className="ui text container">
-                    { this.state.imagesLoaded ?
+                    { this.state.contentLoaded ?
                         <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}/>
                         : <div className="blog-content" style={{ opacity: "0" }} dangerouslySetInnerHTML={{__html: this.state.text}}/>
                     }
                     <br/>
-                    {this.state.imagesLoaded ?
-                        <ReactDisqusThread shortname="blogaliwaseem" title={this.state.data.heading} url={`http://localhost:3000/#!blog/${this.state.data._id}`}/>
+                    {this.state.contentLoaded ?
+                        <ReactDisqusThread shortname="blogaliwaseem" title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
                         :
                         <noscript/>
                     }

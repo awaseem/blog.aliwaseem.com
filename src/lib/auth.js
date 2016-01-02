@@ -6,12 +6,18 @@ import { post } from "../util/request";
 let checkAuth = () => {
     let token = tokenStorage.getToken();
     if (token) {
-        let tokenExp = jwtDecode(token).exp;
-        let currDate = Date.now() / 1000 | 0;
-        // check to ensure that the token is much longer than an hour from
-        // expiring, if it's not then re ask the user to re auth
-        if (tokenExp && currDate < tokenExp && (tokenExp - currDate) >= 7200) {
-            return true;
+        try {
+            let tokenExp = jwtDecode(token).exp;
+            let currDate = Date.now() / 1000 | 0;
+            // check to ensure that the token is much longer than an hour from
+            // expiring, if it's not then re ask the user to re auth
+            if (tokenExp && currDate < tokenExp && (tokenExp - currDate) >= 7200) {
+                return true;
+            }
+        }
+        catch (err) {
+            console.error(err);
+            return false;
         }
     }
     return false;

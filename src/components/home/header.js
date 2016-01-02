@@ -9,12 +9,13 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div id="blog-header" style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.701961), rgba(0, 0, 0, 0.298039)), url(http://i.imgur.com/J0tQcFp.jpg)", backgroundSize: "cover"}} className="column">
+            <div id="blog-header" style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.701961), rgba(0, 0, 0, 0.298039)), url(https://i.imgur.com/5s3aK6C.jpg)", backgroundSize: "cover"}} className="column">
                 <div className="ui centered grid">
                     <div className="row"/>
                     <div className="row">
                         <h1 className="ui inverted header">ALI WASEEM</h1>
                     </div>
+                    <hr/>
                     <div className="row">
                         <h5 className="ui inverted header">A PLACE TO SHARE MY RANDOM THOUGHTS</h5>
                     </div>

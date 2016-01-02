@@ -17,7 +17,7 @@ export default React.createClass({
 
     componentDidMount: function() {
         let router = director.Router({
-            "/home": {
+            "/": {
                 on: () => {
                     this.setState({ currentView: <Posts/> });
                 }
@@ -32,30 +32,26 @@ export default React.createClass({
                     this.setState({ currentView: <About/> });
                 }
             },
-            "/admin": {
-                "/signin": () => {
-                    this.setState({ currentView: <Signin/> });
-                },
-                "/create": () => {
-                    this.setState({ currentView: checkAuth() ? <Create/> : director.Router().setRoute("admin/signin") });
-                },
-                "/create/:id": (id) => {
-                    this.setState({ currentView: checkAuth() ? <Create editId={id}/> : director.Router().setRoute("admin/signin") });
-                },
-                "/dashboard": () => {
-                    this.setState({ currentView: checkAuth() ? <Dashboard/> : director.Router().setRoute("admin/signin") });
-                },
-                on: () => {
-                    this.setState({ currentView: checkAuth() ? <Dashboard/> : director.Router().setRoute("admin/signin") });
-                }
+            // Admin routes, each route is checked to ensure the user is logged. The reason
+            // there isn't a before route is that routes actaully leak UI before auth
+            "/admin/signin": () => {
+                this.setState({ currentView: <Signin/> });
+            },
+            "/admin/create": () => {
+                this.setState({ currentView: checkAuth() ? <Create/> : <Signin/> });
+            },
+            "/admin/create/:id": (id) => {
+                this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <Signin/> });
+            },
+            "/admin/dashboard": () => {
+                this.setState({ currentView: checkAuth() ? <Dashboard/> : <Signin/> });
             },
             "/.*": () => {
                 this.setState({ currentView: <div>404</div> });
-            },
+            }
         }).configure({
             html5history: true
         });
-        console.log(window.location);
         router.init();
     },
 

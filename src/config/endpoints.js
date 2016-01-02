@@ -1,8 +1,10 @@
-let baseURL = "http://localhost:8080/api";
+let baseURL = "https://blog-api.aliwaseem.com/api";
 
 export default {
 
     signin: `${baseURL}/user/signin`,
 
-    blog: `${baseURL}/blog`
+    blog: `${baseURL}/blog`,
+
+    group: "blog"
 };
