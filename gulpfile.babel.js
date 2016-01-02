@@ -20,6 +20,7 @@ import htmlReplace from 'gulp-html-replace';
 import imagemin from 'gulp-imagemin';
 import pngquant from 'imagemin-pngquant';
 import runSequence from 'run-sequence';
+import semanticBuild from "./semantic/tasks/build";
 
 const paths = {
   bundle: 'app.js',
@@ -122,7 +123,10 @@ gulp.task('watch', cb => {
   runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'lint', 'images'], cb);
 });
 
+gulp.task('semanticBuild', 'Builds all files from source', semanticBuild);
+
+
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images'], cb);
+  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images', 'semanticBuild'], cb);
 });
