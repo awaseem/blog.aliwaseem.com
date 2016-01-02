@@ -49,7 +49,7 @@ export default React.createClass({
                     }
                     <br/>
                     {this.state.contentLoaded ?
-                        <ReactDisqusThread shortname="blogaliwaseem" title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
+                        <ReactDisqusThread shortname="blogaliwaseem" identifier={this.state.data._id} title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
                         :
                         <noscript/>
                     }
