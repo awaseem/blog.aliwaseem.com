@@ -9,15 +9,15 @@ let getMod = (message) => {
     if (modMatch !== null) {
         switch (modMatch[1]) {
             case "center":
-                mod = "center aligned header";
+                mod = "center aligned";
                 message = message.replace(/{([a-z]+)}/g, "");
                 break;
             case "right":
-                mod = "right aligned header";
+                mod = "right aligned";
                 message = message.replace(/{([a-z]+)}/g, "");
                 break;
             case "left":
-                mod = "left aligned header";
+                mod = "left aligned";
                 message = message.replace(/{([a-z]+)}/g, "");
                 break;
             default:
@@ -55,11 +55,11 @@ let getModImage = (message) => {
                 message = message.replace(/{([a-z]+)}/g, "");
                 break;
             case "fluid":
-                mod = "fluid";
+                mod = "u-max-full-width";
                 message = message.replace(/{([a-z]+)}/g, "");
                 break;
             default:
-                mod = "fluid";
+                mod = "u-max-full-width";
         }
         return {
             mod: mod,
@@ -68,7 +68,7 @@ let getModImage = (message) => {
     }
     else {
         return {
-            mod: mod,
+            mod: "u-max-full-width",
             message: message
         };
     }
@@ -76,12 +76,12 @@ let getModImage = (message) => {
 
 renderer.image = (href, title, text) => {
     let alterText = getModImage(text);
-    return `<img class="ui centered ${alterText.mod} rounded image" src=${href}></img>`;
+    return `<img class="${alterText.mod}" src=${href}></img>`;
 };
 
 renderer.heading = (text, level) => {
     let alterText = getMod(text);
-    return `<h${level} class="ui ${alterText.mod}">${alterText.message}</h${level}>`;
+    return `<h${level} class="${alterText.mod}">${alterText.message}</h${level}>`;
 };
 
 export default renderer;

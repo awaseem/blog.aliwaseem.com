@@ -9,10 +9,7 @@ import SuccessMessage from "../messages/success";
 marked.setOptions({
     renderer: renderer,
     gfm: true,
-    breaks: false,
-    highlight: function (code) {
-        return require('highlight.js').highlightAuto(code).value;
-    }
+    breaks: false
 });
 
 export default React.createClass({
@@ -48,8 +45,6 @@ export default React.createClass({
         }
         $('#marked-editor')
             .transition('fade in');
-        $('.menu .item')
-            .tab();
     },
 
     updateExistBlog: function () {
@@ -118,29 +113,22 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div id="marked-editor" className="ui container">
-                <div className="ui top attached tabular secondary pointing menu">
-                    <a className="item" data-tab="first">Preview</a>
-                    <a className="item active" data-tab="second">Edit</a>
-                </div>
-                <div className="ui bottom attached tab segment" data-tab="first">
-                    <div className="ui text container">
-                        <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}>
-                        </div>
+            <div id="marked-editor" className="container">
+                <div className="row">
+                    <div className="eight columns offset-by-two">
+                        <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}/>
                     </div>
                 </div>
-                <div className="ui bottom attached tab segment active" data-tab="second">
+                <hr/>
+                <div className="row">
+                    <h3>Edit</h3>
                     { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
                     { this.state.success ? <SuccessMessage successMessage={this.state.success}/>: <noscript/>}
-                    <div className="ui form">
-                        <div className="field">
-                            <input type="text" name="first-name" placeholder="Heading" ref="heading"/>
-                        </div>
-                        <div className="field">
-                            <textarea style={{ width: "100%", marginBottom: "25px" }} placeholder="Body" rows={20} onChange={this.convertToMarkdown} ref="textarea"/>
-                        </div>
-                        <button onClick={this.saveButtonAction} className="ui green button">Save</button>
-                        <button onClick={this.backButtonAction} className="ui red button">Back</button>
+                    <div className="form">
+                        <input type="text" style={{ width: "100%", marginBottom: "25px"}} name="first-name" placeholder="Heading" ref="heading"/>
+                        <textarea style={{ width: "100%", marginBottom: "25px", height: "400px" }} placeholder="Body" onChange={this.convertToMarkdown} ref="textarea"/>
+                        <button className="button-primary" onClick={this.saveButtonAction}>Save</button>
+                        <button onClick={this.backButtonAction}>Back</button>
                     </div>
                 </div>
             </div>

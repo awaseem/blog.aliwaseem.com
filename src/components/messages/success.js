@@ -8,7 +8,7 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div className="ui success message">
+            <div className="success-message">
                 <div className="header">Success!</div>
                 <p>{this.props.successMessage}</p>
             </div>

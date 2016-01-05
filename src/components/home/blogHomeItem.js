@@ -14,11 +14,9 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div className="item">
-                <div className="middle aligned content">
-                    <h3><a href={ `/blog/${this.props.blogId}` } onClick={this.goToBlog}>{this.props.blogHeading}</a></h3>
-                    <p><em>Date: {this.getDate()}</em></p>
-                </div>
+            <div className="blog-item">
+                <h4><a href={ `/blog/${this.props.blogId}` } onClick={this.goToBlog}>{this.props.blogHeading}</a></h4>
+                <p><em>Date: {this.getDate()}</em></p>
             </div>
         );
     }

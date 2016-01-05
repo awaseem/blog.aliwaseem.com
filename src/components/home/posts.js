@@ -51,30 +51,25 @@ export default React.createClass({
             return <BlogItem key={blogItem._id} blogId={blogItem._id} blogHeading={blogItem.heading} blogDate={blogItem.createdOn}/>;
         });
         return (
-            <div className="ui one column grid">
-            <div className="column">
+            <div>
                 <Header/>
-            </div>
-            <div id="blog-posts" className="column">
-                <div className="ui container">
-                    <div className="ui grid">
-                        <div className="row"/>
-                        <div className="row">
-                            <div className="centered nine wide column">
-                                <div className="ui divided items">
-                                    {blogItems}
-                                </div>
-                            </div>
+                <div id="blog-posts" className="container">
+                    <div className="row">
+                        <div className="eight columns offset-by-two blog-items">
+                            {blogItems}
                         </div>
-                        <div className="row">
-                            <div className="center aligned column">
-                            { this.state.noMoreBlogs ? <noscript/> : <button className="ui blue basic button" onClick={this.getBlogsFromServer}>Load More</button> }
-                            { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
-                            </div>
+                    </div>
+                    <div className="row">
+                        <div className="eight columns offset-by-two load-button">
+                            { this.state.noMoreBlogs ? <noscript/> : <button onClick={this.getBlogsFromServer}>Load More</button> }
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="center aligned column">
+                        { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         );
     }

@@ -17,7 +17,7 @@ export default React.createClass({
 
     componentDidMount: function () {
         $('#signin')
-            .transition('fly down in');
+            .transition('fade in');
     },
 
     handleLogin: function (e) {
@@ -89,28 +89,34 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div id="signin" className="ui container">
-                <div className="ui three column centered grid container">
-                    <div className="row"/>
-                    <div className="row"/>
-                    <div className="center aligned row">Welcome Back!</div>
-                    <div className="column">
-                        <form className="ui form error" onSubmit={this.handleLogin}>
-                            <div className="field">
-                                <label>Username</label>
-                                <input type="text" ref="username"/>
-                            </div>
-                            <div className="field">
-                                <label>Password</label>
-                                <input type="password" ref="password"/>
-                            </div>
-                            <div className="field">
-                                <button className="ui teal button" type="submit">Login</button>
-                            </div>
-                            { this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }
-                        </form>
-                    </div>
+            <div id="signin" className="container">
+                <div className="row">
+                    <h3 className="center aligned header">Welcome Back!</h3>
                 </div>
+                <form onSubmit={this.handleLogin}>
+                    <div className="row">
+                        <div className="four columns  offset-by-four">
+                            <label>Username</label>
+                            <input className="u-full-width" type="text" ref="username"/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="four columns offset-by-four">
+                            <label>Password</label>
+                            <input className="u-full-width" type="password" ref="password"/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="four columns offset-by-four">
+                            <button className="ui teal button" type="submit">Login</button>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="four columns offset-by-four">
+                            { this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }
+                        </div>
+                    </div>
+                </form>
             </div>
         );
     }

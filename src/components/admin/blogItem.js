@@ -46,13 +46,12 @@ export default React.createClass({
             return ( <noscript/> );
         }
         return (
-            <div className="column">
-                <div className="ui left aligned segment">
-                    <h4 className="ui header">{this.props.blogHeading}</h4>
-                    <div className="ui tiny blue button" onClick={this.editButton}>Edit</div>
-                    <div className="ui tiny red button" onClick={this.deleteButton}>Delete</div>
-                    { this.state.publish ? <div className="ui tiny green button" onClick={this.publishButton}>Published</div> : <div className="ui tiny yellow button" onClick={this.publishButton}>Unpublished</div> }
-                </div>
+            <div className="row">
+                <h4>{this.props.blogHeading}</h4>
+                <button onClick={this.editButton}>Edit</button>
+                <button onClick={this.deleteButton}>Delete</button>
+                { this.state.publish ? <button className="button-primary" onClick={this.publishButton}>Published</button> : <button onClick={this.publishButton}>Unpublished</button> }
+                <hr/>
             </div>
         );
     }

@@ -34,26 +34,27 @@ export default React.createClass({
                     contentLoaded: true
                 });
                 $("#blog-body")
-                    .transition("fly up in");
+                    .transition("fade in");
             })
             .catch(() => this.setState({ error: `Error: Failed to find blog post with the following id: ${this.props.id}`}));
     },
 
     render: function () {
         return (
-            <div id="blog-body" className="column">
-                <div className="ui text container">
-                    { this.state.contentLoaded ?
-                        <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}/>
-                        : <div className="blog-content" style={{ opacity: "0" }} dangerouslySetInnerHTML={{__html: this.state.text}}/>
-                    }
-                    <br/>
-                    {this.state.contentLoaded ?
-                        <ReactDisqusThread shortname="blogaliwaseem" identifier={this.state.data._id} title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
-                        :
-                        <noscript/>
-                    }
-                    { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
+            <div id="blog-body" className="container">
+                <div className="row">
+                    <div className="eight columns offset-by-two">
+                        { this.state.contentLoaded ?
+                            <div className="blog-content" dangerouslySetInnerHTML={{__html: this.state.text}}/>
+                            : <div className="blog-content" style={{ opacity: "0" }} dangerouslySetInnerHTML={{__html: this.state.text}}/>
+                        }
+                        {this.state.contentLoaded ?
+                            <ReactDisqusThread shortname="blogaliwaseem" identifier={this.state.data._id} title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
+                            :
+                            <noscript/>
+                        }
+                        { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
+                    </div>
                 </div>
             </div>
         );

@@ -62,16 +62,16 @@ export default React.createClass({
             return <BlogItem key={blogItem._id} blogId={blogItem._id} blogHeading={blogItem.heading} blogPublished={blogItem.published}/>;
         });
         return (
-            <div id="dashboard" className="ui center aligned container">
-                <h1>Welcome</h1>
-                <button onClick={this.create} className="ui blue button">Create</button>
-                <button onClick={this.logout} className="ui red button">Logout</button>
-                <h1>All Blog Posts</h1>
-                <div className="ui three column stackable grid">
-                    {blogItems}
-                    <div className="centered row">
-                        { this.state.noMoreBlogs ? <noscript/> : <button className="ui button" onClick={this.getBlogsFromServer}>Load More</button> }
-                    </div>
+            <div id="dashboard" className="container">
+                <div className="row center aligned">
+                    <h1>Welcome</h1>
+                    <button onClick={this.create} className="ui blue button">Create</button>
+                    <button onClick={this.logout} className="ui red button">Logout</button>
+                    <h1>All Blog Posts</h1>
+                </div>
+                {blogItems}
+                <div className="row center aligned">
+                    { this.state.noMoreBlogs ? <noscript/> : <button className="ui button" onClick={this.getBlogsFromServer}>Load More</button> }
                 </div>
                 <br/>
                 { this.state.error ? <ErrorMessage errorMessage={this.state.error}/> : <noscript/> }
