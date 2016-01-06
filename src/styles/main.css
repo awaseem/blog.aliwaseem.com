@@ -38,9 +38,9 @@
 }
 
 .blog-item a {
-    color: #171A21;
+    color: #0099CC;
     text-decoration: none;
-    font-weight: 250;
+    font-weight: 400;
 }
 
 .blog-item a:hover {
