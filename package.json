@@ -34,7 +34,6 @@
   "dependencies": {
     "director": "^1.2.8",
     "express": "^4.13.3",
-    "highlight.js": "^9.0.0",
     "history": "~1.13.x",
     "jquery": "^2.1.4",
     "jwt-decode": "^1.4.0",
@@ -42,7 +41,6 @@
     "react": "^0.14.0",
     "react-disqus-thread": "^0.3.1",
     "react-dom": "^0.14.0",
-    "semantic-ui": "^2.1.7",
     "whatwg-fetch": "^0.10.1"
   },
   "devDependencies": {

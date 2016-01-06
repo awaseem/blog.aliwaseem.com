@@ -15,7 +15,7 @@ export default React.createClass({
     render: function () {
         return (
             <div className="blog-item">
-                <h4><a href={ `/blog/${this.props.blogId}` } onClick={this.goToBlog}>{this.props.blogHeading}</a></h4>
+                <h5><a href={ `/blog/${this.props.blogId}` } onClick={this.goToBlog}>{this.props.blogHeading}</a></h5>
                 <p><em>Date: {this.getDate()}</em></p>
             </div>
         );

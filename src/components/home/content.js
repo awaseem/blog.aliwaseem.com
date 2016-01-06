@@ -8,10 +8,7 @@ import ErrorMessage from "../messages/error";
 marked.setOptions({
     renderer: renderer,
     gfm: true,
-    breaks: false,
-    highlight: function (code) {
-        return require('highlight.js').highlightAuto(code).value;
-    }
+    breaks: false
 });
 
 export default React.createClass({
