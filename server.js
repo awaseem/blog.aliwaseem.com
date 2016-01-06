@@ -7,7 +7,7 @@ var express = require("express");
 var app = express();
 
 app.use("/node_modules",express.static(__dirname + "/node_modules"));
-app.use("/semantic",express.static(__dirname + "/semantic"));
+app.use("/public",express.static(__dirname + "/public"));
 app.use("/dist",express.static(__dirname + "/dist"));
 
 
