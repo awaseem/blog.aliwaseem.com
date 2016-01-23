@@ -1,14 +1,13 @@
 {
-  "name": "react-starterify",
-  "version": "2.1.3",
+  "name": "blog-aliwaseem",
+  "version": "1.0.0",
   "description": "React JS application skeleton using Browserify and other awesome tools",
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Granze/react-starterify"
+    "url": "https://github.com/awaseem/blog.aliwaseem.com"
   },
   "keywords": [
-    "gulp",
     "react",
     "browserify",
     "seed",
@@ -22,15 +21,12 @@
   ],
   "scripts": {
     "test": "echo 'no test'",
-    "watch": "gulp watch",
-    "build": "gulp build"
+    "watch": "webpack-dev-server",
+    "build": "webpack"
   },
-  "author": "Maurizio Mangione",
+  "author": "Ali Waseem",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Granze/react-starterify/issues"
-  },
-  "homepage": "https://github.com/Granze/react-starterify",
+  "homepage": "https://blog.aliwaseem.com",
   "dependencies": {
     "director": "^1.2.8",
     "express": "^4.13.3",
@@ -60,14 +56,6 @@
     "css-loader": "^0.23.1",
     "cssnano": "^3.0.0",
     "eslint-plugin-react": "^3.15.0",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^1.0.0",
-    "gulp-html-replace": "^1.5.1",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-notify": "^2.2.0",
-    "gulp-postcss": "^6.0.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.4.0",
     "html-webpack-plugin": "^2.7.1",
     "imagemin-pngquant": "^4.2.0",
     "mocha": "^2.3.4",
