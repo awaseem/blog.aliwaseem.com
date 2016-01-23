@@ -11,10 +11,10 @@ app.use("/public",express.static(__dirname + "/public"));
 app.use("/dist",express.static(__dirname + "/dist"));
 
 
-app.get('*', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get("*", function (req, res) {
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.listen(3000, function () {
-    console.log("Running on localhost:3000");
+    console.log( "Running on localhost:3000" );
 });
