@@ -1,11 +1,11 @@
 {
-  "name": "react-starterify",
-  "version": "2.1.3",
-  "description": "React JS application skeleton using Browserify and other awesome tools",
-  "main": "app.js",
+  "name": "blog-aliwaseem",
+  "version": "1.0.0",
+  "description": "A simple blog website made with React.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Granze/react-starterify"
+    "url": "https://github.com/awaseem/blog.aliwaseem.com"
   },
   "keywords": [
     "gulp",
@@ -25,12 +25,9 @@
     "watch": "gulp watch",
     "build": "gulp build"
   },
-  "author": "Maurizio Mangione",
+  "author": "Ali Waseem",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Granze/react-starterify/issues"
-  },
-  "homepage": "https://github.com/Granze/react-starterify",
+  "homepage": "https://blog.aliwaseem.com",
   "dependencies": {
     "director": "^1.2.8",
     "express": "^4.13.3",
