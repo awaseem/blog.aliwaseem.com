@@ -1,8 +1,8 @@
 import "whatwg-fetch";
 // import all css files into entry point
-import "../public/normalize.css";
-import "../public/skeleton.css";
-import "../public/main.css";
+import "./styles/normalize.css";
+import "./styles/skeleton.css";
+import "./styles/main.css";
 // Import React components
 import React from "react";
 import { render } from "react-dom";
