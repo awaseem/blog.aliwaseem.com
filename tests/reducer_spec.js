@@ -1,6 +1,6 @@
 import { Map, fromJS } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction, getBlogsAction } from "../src/actions/action";
+import { setBlogsAction, getBlogsAction, setErrorAction } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
@@ -182,6 +182,50 @@ describe("reducer", () => {
             } ],
             lastDate: "test date",
             isFetching: true
+        }));
+    });
+
+    it("handles SET_ERROR", () => {
+        const initialState = Map();
+        const action = setErrorAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            error: true,
+            errorMessage: "Unknown error has occured!",
+            isFetching: false
+        }));
+    });
+
+    it("handles SET_ERROR with proper initial state data", () => {
+        const initialState = fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: true,
+            error: false,
+            errorMessage: ""
+        });
+        const action = setErrorAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: false,
+            error: true,
+            errorMessage: "Unknown error has occured!"
         }));
     });
 
