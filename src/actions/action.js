@@ -2,7 +2,7 @@ import { Map, fromJS } from "immutable";
 
 export const SET_BLOGS = "SET_BLOGS";
 
-export function setBlogsAction(blogPosts = []) {
+export function setBlogsAction(blogPosts) {
     /**
      * Create action that handles the addition of the blog posts
      * @param: {array} BlogPosts - a list of blog posts
