@@ -1,6 +1,6 @@
 import { Map, fromJS } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction } from "../src/actions/action";
+import { setBlogsAction, getBlogsAction } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
@@ -144,6 +144,44 @@ describe("reducer", () => {
             } ],
             lastDate: "test date",
             isFetching: false
+        }));
+    });
+
+    it("handles GET_BLOGS", () => {
+        const initialState = Map();
+        const action = getBlogsAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            isFetching: true
+        }));
+    });
+
+    it("handles GET_BLOGS to change fetching state", () => {
+        const initialState = fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: false
+        });
+        const action = getBlogsAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: true
         }));
     });
 

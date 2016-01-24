@@ -1,14 +1,13 @@
 import { Map, List } from "immutable";
 import { BLOGS, LAST_DATE, IS_FETCHING } from "../schema/stateTree";
-import { SET_BLOGS } from "../actions/action";
+import { SET_BLOGS, GET_BLOGS } from "../actions/action";
 
 function setBlogs(state, newState) {
     /**
-     * Immutable js has a merge method which can combine two objects being
-     * passed in.
+     * Add blogs to the state tree
      * @param {object} state - current state tree
-     * @param  {object} newState - new state to merge
-     * @return {object} state tree with merged blogs
+     * @param  {object} newState - new state with new blogs
+     * @return {object} state tree with concated blogs
      */
     const currBlogs = state.get(BLOGS);
     const newBlogs = newState.get(BLOGS);
@@ -29,10 +28,22 @@ function setBlogs(state, newState) {
     }
 }
 
+function getBlogs(state, newState) {
+    /**
+     * Updates the isFetching flag within the state tree to be true
+     * @param {object} state - current state tree
+     * @param  {object} newState - new state tree
+     * @return {object} updated state tree
+     */
+    return state.set(IS_FETCHING, newState.get(IS_FETCHING));
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
         return setBlogs(state, action.state);
+    case GET_BLOGS:
+        return getBlogs(state, action.state);
     default:
         return state;
     }
