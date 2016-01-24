@@ -1,4 +1,5 @@
 import { Map, List } from "immutable";
+import { BLOGS, LAST_DATE, IS_FETCHING } from "../schema/stateTree";
 import { SET_BLOGS } from "../actions/action";
 
 function setBlogs(state, newState) {
@@ -9,14 +10,19 @@ function setBlogs(state, newState) {
      * @param  {object} newState - new state to merge
      * @return {object} state tree with merged blogs
      */
-    const blogsKey = "Blogs";
-    const currBlogs = state.get(blogsKey);
-    const newBlogs = newState.get(blogsKey);
-    if ( List.isList(currBlogs) && List.isList(newBlogs) ) {
-        return state.set(blogsKey, currBlogs.concat(newBlogs));
+    const currBlogs = state.get(BLOGS);
+    const newBlogs = newState.get(BLOGS);
+    if ( List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
+        return state
+                .set(BLOGS, currBlogs.concat(newBlogs))
+                .set(LAST_DATE, newBlogs.last().get("createdOn"))
+                .set(IS_FETCHING, false);
     }
-    else if ( !List.isList(currBlogs) && List.isList(newBlogs) ) {
-        return state.set(blogsKey, newBlogs);
+    else if ( !List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
+        return state
+                .set(BLOGS, newBlogs)
+                .set(LAST_DATE, newBlogs.last().get("createdOn"))
+                .set(IS_FETCHING, false);
     }
     else {
         return state;
