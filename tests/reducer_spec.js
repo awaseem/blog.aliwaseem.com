@@ -75,7 +75,7 @@ describe("reducer", () => {
                 }
             ],
             lastDate: "test date 1",
-            isFetching: false
+            isFetching: true
         });
         const action = setBlogsAction([ {
             heading: "test 2",

@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import director from "director";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
-import Header from "./home/header";
 import Content from "./home/content";
 import Posts from "./home/posts";
+import BlogPosts from "./home_redux/BlogPosts";
 import { checkAuth } from "../lib/auth";
 
 export default React.createClass({
@@ -18,7 +18,7 @@ export default React.createClass({
         let router = director.Router({
             "/": {
                 on: () => {
-                    this.setState({ currentView: <Posts/> });
+                    this.setState({ currentView: <BlogPosts/> });
                 }
             },
             "/blog/:id": {
@@ -32,7 +32,7 @@ export default React.createClass({
                 }
             },
             // Admin routes, each route is checked to ensure the user is logged. The reason
-            // there isn't a before route is that routes actaully leak UI before auth
+            // there isn"t a before route is that routes actaully leak UI before auth
             "/admin/signin": () => {
                 this.setState({ currentView: <Signin/> });
             },

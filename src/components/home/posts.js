@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { getBlogs } from "../../lib/blog";
 import BlogItem from "./blogHomeItem";
 import Header from "./header";
@@ -20,7 +20,7 @@ export default React.createClass({
             .then((blogs) => {
                 if (blogs.length !== 0) {
                     if (animation === true) {
-                        $("#blog-posts").transition('fade in');
+                        $("#blog-posts").transition("fade in");
                     }
                     this.setState({
                         blogs: this.state.blogs.concat(blogs),
@@ -34,8 +34,7 @@ export default React.createClass({
                     });
                 }
             })
-            .catch((error) => {
-                console.error(error);
+            .catch(() => {
                 this.setState({
                     error: "Error: Failed to retrive blogs from the server!"
                 });

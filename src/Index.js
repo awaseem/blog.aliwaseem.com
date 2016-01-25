@@ -3,6 +3,7 @@ import "whatwg-fetch";
 import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 import { fetchBlogs } from "./actions/action";
 import reducer from "./reducer/reducer";
 // import all css files into entry point
@@ -27,4 +28,9 @@ store.dispatch(fetchBlogs());
 
 window.React = React;
 
-render( <App/>, document.getElementById("content"));
+render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById("content")
+);
