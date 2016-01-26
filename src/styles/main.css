@@ -132,3 +132,9 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+
+.cube-grid.spinner {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}

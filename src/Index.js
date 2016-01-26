@@ -10,6 +10,8 @@ import reducer from "./reducer/reducer";
 import "./styles/normalize.css";
 import "./styles/skeleton.css";
 import "./styles/main.css";
+import "velocity-animate";
+import "velocity-animate/velocity.ui";
 // Import React components
 import React from "react";
 import { render } from "react-dom";

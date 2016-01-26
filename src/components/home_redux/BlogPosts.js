@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import Spinner from "react-spinkit";
 import { IS_FETCHING, BLOGS, ERROR } from "../../schema/stateTree";
 import BlogPostItem from "./BlogPostItem";
+import { Fade } from "../animations/animate";
 
 let blogPosts = React.createClass({
     render: function () {
@@ -12,7 +14,9 @@ let blogPosts = React.createClass({
             <div id="blog-posts" className="container">
                 <div className="row">
                     <div className="eight columns offset-by-two blog-items">
-                        {this.props.isFetching ? "Loading..." : blogItems }
+                        <Fade>
+                        {this.props.isFetching ? <Spinner spinnerName='cube-grid' noFadeIn/> : blogItems }
+                        </Fade>
                     </div>
                 </div>
             </div>
