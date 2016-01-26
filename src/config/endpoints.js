@@ -1,4 +1,4 @@
-let baseURL = "https://blog-api.aliwaseem.com/api";
+let baseURL = "http://localhost:3000/api";
 
 export default {
 
@@ -6,5 +6,5 @@ export default {
 
     blog: `${baseURL}/blog`,
 
-    group: "blog"
+    group: "test"
 };

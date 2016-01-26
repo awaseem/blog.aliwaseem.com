@@ -1,14 +1,15 @@
 import React from "react";
 import director from "director";
+import { connect } from "react-redux";
+import { fetchBlogsIfNeeded } from "../actions/action";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
 import Content from "./home/content";
-import Posts from "./home/posts";
 import BlogPosts from "./home_redux/BlogPosts";
 import { checkAuth } from "../lib/auth";
 
-export default React.createClass({
+const App = React.createClass({
 
     getInitialState: function () {
         return { currentView: <noscript/> };
@@ -18,6 +19,7 @@ export default React.createClass({
         let router = director.Router({
             "/": {
                 on: () => {
+                    this.props.dispatch(fetchBlogsIfNeeded());
                     this.setState({ currentView: <BlogPosts/> });
                 }
             },
@@ -62,3 +64,5 @@ export default React.createClass({
         );
     }
 });
+
+export default connect()(App);

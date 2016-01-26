@@ -44,15 +44,33 @@ export function setErrorAction(message = "Unknown error has occured!") {
     return action;
 }
 
-export function fetchBlogs() {
+export function fetchBlogs(date = undefined, published = true) {
     return dispatch => {
         dispatch(getBlogsAction());
-        return getBlogs()
+        return getBlogs(date, published)
                 .then( blogData => {
                     dispatch(setBlogsAction(blogData));
                 })
                 .catch(() => {
                     dispatch(setErrorAction("Failed to load blogs posts!"));
                 });
+    };
+}
+
+function shouldFetchBlogs(state) {
+    const blogs = state.get(BLOGS);
+    if (!blogs) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+export function fetchBlogsIfNeeded() {
+    return (dispatch, getState) => {
+        if (shouldFetchBlogs(getState())) {
+            return dispatch(fetchBlogs());
+        }
     };
 }

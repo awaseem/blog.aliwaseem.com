@@ -4,7 +4,6 @@ import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { fetchBlogs } from "./actions/action";
 import reducer from "./reducer/reducer";
 // import all css files into entry point
 import "./styles/normalize.css";
@@ -25,8 +24,6 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore);
 
 const store = createStoreWithMiddleware(reducer);
-
-store.dispatch(fetchBlogs());
 
 window.React = React;
 

@@ -15,7 +15,7 @@ let blogPosts = React.createClass({
                 <div className="row">
                     <div className="eight columns offset-by-two blog-items">
                         <Fade>
-                        {this.props.isFetching ? <Spinner spinnerName='cube-grid' noFadeIn/> : blogItems }
+                            {blogItems}
                         </Fade>
                     </div>
                 </div>
