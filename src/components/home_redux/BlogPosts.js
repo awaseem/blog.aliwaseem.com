@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import Spinner from "react-spinkit";
-import { IS_FETCHING, BLOGS, ERROR } from "../../schema/stateTree";
+import { IS_FETCHING, BLOGS, ERROR, ERROR_MESSAGE } from "../../schema/stateTree";
 import BlogPostItem from "./BlogPostItem";
 import { Fade } from "../animations/animate";
+import ErrorMessage from "../messages/error";
+import LoadMoreButton from "./LoadMoreButton";
 
 let blogPosts = React.createClass({
     render: function () {
@@ -15,7 +16,9 @@ let blogPosts = React.createClass({
                 <div className="row">
                     <div className="eight columns offset-by-two blog-items">
                         <Fade>
-                            {blogItems}
+                        {blogItems}
+                            { this.props.error ? <ErrorMessage errorMessage={this.props.errorMessage}/> : <noscript/> }
+                            <LoadMoreButton/>
                         </Fade>
                     </div>
                 </div>
@@ -26,9 +29,9 @@ let blogPosts = React.createClass({
 
 function mapStateToProps(state) {
     return {
-        isFetching: state.get(IS_FETCHING),
         Blogs: state.get(BLOGS) ? state.get(BLOGS).toJS() : [],
-        error: state.get(ERROR)
+        error: state.get(ERROR),
+        errorMessage: state.get(ERROR_MESSAGE)
     };
 }
 

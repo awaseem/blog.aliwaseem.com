@@ -6,7 +6,7 @@ import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
 import Content from "./home/content";
-import BlogPosts from "./home_redux/BlogPosts";
+import HomeContainer from "./home_redux/HomeContainer";
 import { checkAuth } from "../lib/auth";
 
 const App = React.createClass({
@@ -20,7 +20,7 @@ const App = React.createClass({
             "/": {
                 on: () => {
                     this.props.dispatch(fetchBlogsIfNeeded());
-                    this.setState({ currentView: <BlogPosts/> });
+                    this.setState({ currentView: <HomeContainer/> });
                 }
             },
             "/blog/:id": {
