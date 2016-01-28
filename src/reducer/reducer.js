@@ -1,5 +1,5 @@
 import { Map, List } from "immutable";
-import { BLOGS, LAST_DATE } from "../schema/stateTree";
+import { BLOGS, LAST_DATE, ALL_BLOGS_LOADED } from "../schema/stateTree";
 import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS } from "../actions/action";
 
 function setBlogs(state, newState) {
@@ -20,6 +20,9 @@ function setBlogs(state, newState) {
         return state
                 .set(BLOGS, newBlogs)
                 .set(LAST_DATE, newBlogs.last().get("createdOn"));
+    }
+    else if ( List.isList(newBlogs) && newBlogs.isEmpty() ) {
+        return state.set(ALL_BLOGS_LOADED, true);
     }
     else {
         return state;

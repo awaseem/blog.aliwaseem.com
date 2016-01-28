@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Spinner from "react-spinkit";
-import { BLOGS, ERROR, ERROR_MESSAGE } from "../../schema/stateTree";
+import { BLOGS, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, IS_FETCHING } from "../../schema/stateTree";
 import BlogPostItem from "./BlogPostItem";
 import { Fade } from "../animations/animate";
 import ErrorMessage from "../messages/error";
@@ -18,10 +18,10 @@ let blogPosts = React.createClass({
                     <div className="eight columns offset-by-two blog-items">
                         <Fade>
                             {blogItems}
-                            {this.props.isFetching ? <Spinner spinnerName='cube-grid' noFadeIn/> : undefined}
-                            {this.props.isFetching ? undefined : <LoadMoreButton/>}
+                            { this.props.isFetching ? <Spinner spinnerName='cube-grid' noFadeIn/> : undefined }
+                            { (this.props.isFetching || this.props.error || this.props.allBlogsLoaded) ? undefined : <LoadMoreButton/> }
+                            { this.props.error ? <ErrorMessage errorMessage={this.props.errorMessage}/> : undefined }
                         </Fade>
-                        { this.props.error ? <ErrorMessage errorMessage={this.props.errorMessage}/> : <noscript/> }
                     </div>
                 </div>
             </div>
@@ -31,7 +31,8 @@ let blogPosts = React.createClass({
 
 function mapStateToProps(state) {
     return {
-        isFetching: state.get("isFetching"),
+        isFetching: state.get(IS_FETCHING),
+        allBlogsLoaded: state.get(ALL_BLOGS_LOADED),
         Blogs: state.get(BLOGS) ? state.get(BLOGS).toJS() : [],
         error: state.get(ERROR),
         errorMessage: state.get(ERROR_MESSAGE)

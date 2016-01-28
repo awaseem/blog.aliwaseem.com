@@ -4,7 +4,7 @@ import { VelocityTransitionGroup } from "velocity-react";
 export const Fade = React.createClass({
     render: function () {
         return (
-            <VelocityTransitionGroup enter={{ animation: "fadeIn" }}>
+            <VelocityTransitionGroup enter={{ animation: "fadeIn" }} leave={{ animation: "fadeOut" }}>
                 {this.props.children}
             </VelocityTransitionGroup>
         );

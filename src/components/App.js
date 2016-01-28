@@ -28,11 +28,6 @@ const App = React.createClass({
                     this.setState({ currentView: <Content id={id}/> });
                 }
             },
-            "/about": {
-                on: () => {
-                    this.setState({ currentView: <About/> });
-                }
-            },
             // Admin routes, each route is checked to ensure the user is logged. The reason
             // there isn"t a before route is that routes actaully leak UI before auth
             "/admin/signin": () => {

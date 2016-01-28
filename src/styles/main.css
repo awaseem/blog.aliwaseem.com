@@ -136,5 +136,12 @@ blockquote p {
 .cube-grid.spinner {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+    margin-top: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+.load-more-button {
+    margin-left: auto;
+    margin-right: auto;
 }

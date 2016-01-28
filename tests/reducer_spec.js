@@ -142,7 +142,8 @@ describe("reducer", () => {
                 published: true
             } ],
             lastDate: "test date",
-            isFetching: false
+            isFetching: false,
+            allBlogsLoaded: true
         }));
     });
 
