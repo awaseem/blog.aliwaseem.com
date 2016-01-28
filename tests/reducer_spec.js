@@ -1,6 +1,6 @@
 import { Map, fromJS } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction, getBlogsAction, setErrorAction } from "../src/actions/action";
+import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
@@ -20,8 +20,7 @@ describe("reducer", () => {
         const nextState = reducer(initialState, action);
         expect(nextState).to.equal(fromJS({
             Blogs: [ dataPayload ],
-            lastDate: "test date",
-            isFetching: false
+            lastDate: "test date"
         }));
     });
 
@@ -114,7 +113,7 @@ describe("reducer", () => {
                 }
             ],
             lastDate: "test date 2",
-            isFetching: false
+            isFetching: true
         }));
     });
 
@@ -226,6 +225,44 @@ describe("reducer", () => {
             isFetching: false,
             error: true,
             errorMessage: "Unknown error has occured!"
+        }));
+    });
+
+    it("handles COMPLETE_BLOGS", () => {
+        const initialState = Map();
+        const action = completeBlogsAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            isFetching: false
+        }));
+    });
+
+    it("handles COMPLETE_BLOGS to change fetching state", () => {
+        const initialState = fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: true
+        });
+        const action = completeBlogsAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            Blogs: [ {
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            } ],
+            lastDate: "test date",
+            isFetching: false
         }));
     });
 

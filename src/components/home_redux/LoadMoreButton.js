@@ -1,13 +1,17 @@
 import React from "react";
-import Spinner from "react-spinkit";
 import { connect } from "react-redux";
-import { IS_FETCHING } from "../../schema/stateTree";
+import { IS_FETCHING, LAST_DATE } from "../../schema/stateTree";
+import { fetchBlogs } from "../../actions/action";
 
 const button = React.createClass({
+    clickHandler: function () {
+        this.props.dispatch(fetchBlogs(this.props.lastDate));
+    },
+
     render: function () {
         return (
             <div>
-                { this.props.isFetching ? <Spinner spinnerName='cube-grid' noFadeIn/> : <button>Load More</button> }
+                <button onClick={this.clickHandler}>Load More</button>
             </div>
         );
     }
@@ -15,8 +19,9 @@ const button = React.createClass({
 
 function mapStateToProps(state) {
     return {
-        isFetching: state.get(IS_FETCHING)
-    }
+        isFetching: state.get(IS_FETCHING),
+        lastDate: state.get(LAST_DATE)
+    };
 }
 
 export default connect(mapStateToProps)(button);

@@ -5,6 +5,7 @@ import { getBlogs } from "../lib/blog";
 export const SET_BLOGS = "SET_BLOGS";
 export const GET_BLOGS = "GET_BLOGS";
 export const SET_ERROR = "SET_ERROR";
+export const COMPLETE_BLOGS = "COMPLETE_BLOGS";
 
 export function setBlogsAction(blogPosts) {
     /**
@@ -44,12 +45,25 @@ export function setErrorAction(message = "Unknown error has occured!") {
     return action;
 }
 
+export function completeBlogsAction() {
+    /**
+     * Create action that completes blogs fetching
+     * @return: action with fetching set to false
+     */
+    const action = {
+        type: COMPLETE_BLOGS
+    };
+    action.state = Map().set(IS_FETCHING, false);
+    return action;
+}
+
 export function fetchBlogs(date = undefined, published = true) {
     return dispatch => {
         dispatch(getBlogsAction());
         return getBlogs(date, published)
                 .then( blogData => {
                     dispatch(setBlogsAction(blogData));
+                    dispatch(completeBlogsAction());
                 })
                 .catch(() => {
                     dispatch(setErrorAction("Failed to load blogs posts!"));

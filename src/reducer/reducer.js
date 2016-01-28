@@ -1,6 +1,6 @@
 import { Map, List } from "immutable";
-import { BLOGS, LAST_DATE, IS_FETCHING} from "../schema/stateTree";
-import { SET_BLOGS, GET_BLOGS, SET_ERROR } from "../actions/action";
+import { BLOGS, LAST_DATE } from "../schema/stateTree";
+import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS } from "../actions/action";
 
 function setBlogs(state, newState) {
     /**
@@ -14,14 +14,12 @@ function setBlogs(state, newState) {
     if ( List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, currBlogs.concat(newBlogs))
-                .set(LAST_DATE, newBlogs.last().get("createdOn"))
-                .set(IS_FETCHING, false);
+                .set(LAST_DATE, newBlogs.last().get("createdOn"));
     }
     else if ( !List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, newBlogs)
-                .set(LAST_DATE, newBlogs.last().get("createdOn"))
-                .set(IS_FETCHING, false);
+                .set(LAST_DATE, newBlogs.last().get("createdOn"));
     }
     else {
         return state;
@@ -48,6 +46,16 @@ function setError(state, newState) {
     return state.merge(newState);
 }
 
+function completeBlogs(state, newState) {
+    /**
+     * Updates the isFetching flag within the state tree to be false
+     * @param {object} state - current state tree
+     * @param  {object} newState - new state tree
+     * @return {object} updated state tree with proper fetching flag
+     */
+    return state.merge(newState);
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
@@ -56,6 +64,8 @@ export default function reducer(state = Map(), action) {
         return getBlogs(state, action.state);
     case SET_ERROR:
         return setError(state, action.state);
+    case COMPLETE_BLOGS:
+        return completeBlogs(state, action.state);
     default:
         return state;
     }

@@ -5,9 +5,7 @@ export const Fade = React.createClass({
     render: function () {
         return (
             <VelocityTransitionGroup enter={{ animation: "fadeIn" }}>
-                <div key={Math.random()}>
-                    {this.props.children}
-                </div>
+                {this.props.children}
             </VelocityTransitionGroup>
         );
     }
