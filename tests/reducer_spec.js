@@ -1,6 +1,6 @@
-import { Map, fromJS } from "immutable";
+import { Map, fromJS, Set } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction } from "../src/actions/action";
+import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction, allBlogsLoadedAction } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
@@ -18,61 +18,69 @@ describe("reducer", () => {
         };
         const action = setBlogsAction([ dataPayload ]);
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ dataPayload ],
-            lastDate: "test date"
-        }));
-    });
-
-    it("handles SET_BLOGS to return same state with inproper value", () => {
-        const initialState = fromJS({
-            Blogs: [ {
+        const expectedValue = Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
+            lastDate: "test date"
+        });
+        expect(nextState).to.equal(expectedValue);
+    });
+
+    it("handles SET_BLOGS to return same state with inproper value", () => {
+        const initialState = Map({
+            Blogs: Set([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
             lastDate: "test date",
             isFetching: false
         });
         const action = setBlogsAction("NOT_VALID_VALUE");
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ {
+        expect(nextState).to.equal(Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: false
         }));
     });
 
     it ("handles SET_BLOGS to concat new blog entries", () => {
-        const initialState = fromJS({
-            Blogs: [
-                {
+        const initialState = Map({
+            Blogs: Set([
+                Map({
                     heading: "test",
                     author: "test test",
                     body: "test",
                     group: "test",
                     createdOn: "test date",
                     published: true
-                },
-                {
+                }),
+                Map({
                     heading: "test 1",
                     author: "test test 1",
                     body: "test 1",
                     group: "test 1",
                     createdOn: "test date 1",
                     published: false
-                }
-            ],
+                })
+            ]),
             lastDate: "test date 1",
             isFetching: true
         });
@@ -85,65 +93,108 @@ describe("reducer", () => {
             published: true
         } ]);
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [
-                {
+        expect(nextState).to.equal(Map({
+            Blogs: Set([
+                Map({
                     heading: "test",
                     author: "test test",
                     body: "test",
                     group: "test",
                     createdOn: "test date",
                     published: true
-                },
-                {
+                }),
+                Map({
                     heading: "test 1",
                     author: "test test 1",
                     body: "test 1",
                     group: "test 1",
                     createdOn: "test date 1",
                     published: false
-                },
-                {
+                }),
+                Map({
                     heading: "test 2",
                     author: "test test 2",
                     body: "test 2",
                     group: "test 2",
                     createdOn: "test date 2",
                     published: true
-                }
-            ],
+                })
+            ]),
             lastDate: "test date 2",
             isFetching: true
         }));
     });
 
-    it("handles SET_BLOGS with empty list as a nextState", () => {
-        const initialState = fromJS({
-            Blogs: [ {
-                heading: "test",
-                author: "test test",
-                body: "test",
-                group: "test",
-                createdOn: "test date",
-                published: true
-            } ],
-            lastDate: "test date",
-            isFetching: false
+    it ("handles SET_BLOGS to concat duplicate blog entries", () => {
+        const initialState = Map({
+            Blogs: Set([
+                Map({
+                    heading: "test",
+                    author: "test test",
+                    body: "test",
+                    group: "test",
+                    createdOn: "test date",
+                    published: true
+                }),
+                Map({
+                    heading: "test 1",
+                    author: "test test 1",
+                    body: "test 1",
+                    group: "test 1",
+                    createdOn: "test date 1",
+                    published: false
+                })
+            ]),
+            lastDate: "test date 1",
+            isFetching: true
         });
-        const action = setBlogsAction([]);
-        const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ {
-                heading: "test",
-                author: "test test",
-                body: "test",
-                group: "test",
-                createdOn: "test date",
+        const action = setBlogsAction([
+            {
+                heading: "test 1",
+                author: "test test 1",
+                body: "test 1",
+                group: "test 1",
+                createdOn: "test date 1",
+                published: false
+            },
+            {
+                heading: "test 2",
+                author: "test test 2",
+                body: "test 2",
+                group: "test 2",
+                createdOn: "test date 2",
                 published: true
-            } ],
-            lastDate: "test date",
-            isFetching: false,
-            allBlogsLoaded: true
+            }]);
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            Blogs: Set([
+                Map({
+                    heading: "test",
+                    author: "test test",
+                    body: "test",
+                    group: "test",
+                    createdOn: "test date",
+                    published: true
+                }),
+                Map({
+                    heading: "test 1",
+                    author: "test test 1",
+                    body: "test 1",
+                    group: "test 1",
+                    createdOn: "test date 1",
+                    published: false
+                }),
+                Map({
+                    heading: "test 2",
+                    author: "test test 2",
+                    body: "test 2",
+                    group: "test 2",
+                    createdOn: "test date 2",
+                    published: true
+                })
+            ]),
+            lastDate: "test date 2",
+            isFetching: true
         }));
     });
 
@@ -157,29 +208,29 @@ describe("reducer", () => {
     });
 
     it("handles GET_BLOGS to change fetching state", () => {
-        const initialState = fromJS({
-            Blogs: [ {
+        const initialState = Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: false
         });
         const action = getBlogsAction();
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ {
+        expect(nextState).to.equal(Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: true
         }));
@@ -189,7 +240,7 @@ describe("reducer", () => {
         const initialState = Map();
         const action = setErrorAction();
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
+        expect(nextState).to.equal(Map({
             error: true,
             errorMessage: "Unknown error has occured!",
             isFetching: false
@@ -197,15 +248,15 @@ describe("reducer", () => {
     });
 
     it("handles SET_ERROR with proper initial state data", () => {
-        const initialState = fromJS({
-            Blogs: [ {
+        const initialState = Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: true,
             error: false,
@@ -213,15 +264,15 @@ describe("reducer", () => {
         });
         const action = setErrorAction();
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ {
+        expect(nextState).to.equal(Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: false,
             error: true,
@@ -233,37 +284,68 @@ describe("reducer", () => {
         const initialState = Map();
         const action = completeBlogsAction();
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
+        expect(nextState).to.equal(Map({
             isFetching: false
         }));
     });
 
     it("handles COMPLETE_BLOGS to change fetching state", () => {
-        const initialState = fromJS({
-            Blogs: [ {
+        const initialState = Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: true
         });
         const action = completeBlogsAction();
         const nextState = reducer(initialState, action);
-        expect(nextState).to.equal(fromJS({
-            Blogs: [ {
+        expect(nextState).to.equal(Map({
+            Blogs: Set([ Map({
                 heading: "test",
                 author: "test test",
                 body: "test",
                 group: "test",
                 createdOn: "test date",
                 published: true
-            } ],
+            }) ]),
             lastDate: "test date",
             isFetching: false
+        }));
+    });
+
+    it("handles ALL_BLOGS_LOADED to change blog state", () => {
+        const initialState = Map({
+            Blogs: Set([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: false
+        });
+        const action = allBlogsLoadedAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            Blogs: Set([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: true
         }));
     });
 

@@ -1,5 +1,5 @@
-import { Map, fromJS } from "immutable";
-import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE } from "../schema/stateTree";
+import { Map, fromJS, Set } from "immutable";
+import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED } from "../schema/stateTree";
 import { getBlogs } from "../lib/blog";
 
 export const SET_BLOGS = "SET_BLOGS";
@@ -16,7 +16,12 @@ export function setBlogsAction(blogPosts) {
     const action = {
         type: SET_BLOGS
     };
-    action.state = Map().set(BLOGS, fromJS(blogPosts));
+    if (Array.isArray(blogPosts)) {
+        action.state = Map().set(BLOGS, fromJS(blogPosts).toSet());
+    }
+    else {
+        action.state = Map().set(BLOGS, Set());
+    }
     return action;
 }
 
@@ -57,12 +62,29 @@ export function completeBlogsAction() {
     return action;
 }
 
+export function allBlogsLoadedAction(state = true) {
+    /**
+     * @param: {boolean} state of the all blogs loaded state within the tree
+     * @return: action with all blogs state set to true by default
+     */
+    const action = {
+        type: ALL_BLOGS_LOADED
+    };
+    action.state = Map().set(ALL_BLOGS_LOADED, state);
+    return action;
+}
+
 export function fetchBlogs(date = undefined, published = true) {
     return dispatch => {
         dispatch(getBlogsAction());
         return getBlogs(date, published)
                 .then( blogData => {
-                    dispatch(setBlogsAction(blogData));
+                    if (Array.isArray(blogData) && blogData.length !== 0) {
+                        dispatch(setBlogsAction(blogData));
+                    }
+                    else {
+                        dispatch(allBlogsLoadedAction());
+                    }
                     dispatch(completeBlogsAction());
                 })
                 .catch(() => {

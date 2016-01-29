@@ -5,7 +5,8 @@
  *     LAST_DATE: "date string",
  *     ERROR: true,
  *     ERROR_MESSAGE: "error string",
- *     ALL_BLOGS_LOADED: true
+ *     ALL_BLOGS_LOADED: true,
+ *     CURRENT_BLOG_VIEW: "id"
  * }
  */
 export const BLOGS = "Blogs";
@@ -19,3 +20,5 @@ export const ERROR = "error";
 export const ERROR_MESSAGE = "errorMessage";
 
 export const ALL_BLOGS_LOADED = "allBlogsLoaded";
+
+export const CURRENT_BLOG_VIEW = "currentBlogView";

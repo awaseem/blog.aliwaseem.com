@@ -1,4 +1,4 @@
-import { Map, List } from "immutable";
+import { Map, Set } from "immutable";
 import { BLOGS, LAST_DATE, ALL_BLOGS_LOADED } from "../schema/stateTree";
 import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS } from "../actions/action";
 
@@ -11,18 +11,15 @@ function setBlogs(state, newState) {
      */
     const currBlogs = state.get(BLOGS);
     const newBlogs = newState.get(BLOGS);
-    if ( List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
+    if ( Set.isSet(currBlogs) && Set.isSet(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, currBlogs.concat(newBlogs))
                 .set(LAST_DATE, newBlogs.last().get("createdOn"));
     }
-    else if ( !List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
+    else if ( !Set.isSet(currBlogs) && Set.isSet(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, newBlogs)
                 .set(LAST_DATE, newBlogs.last().get("createdOn"));
-    }
-    else if ( List.isList(newBlogs) && newBlogs.isEmpty() ) {
-        return state.set(ALL_BLOGS_LOADED, true);
     }
     else {
         return state;
@@ -59,6 +56,16 @@ function completeBlogs(state, newState) {
     return state.merge(newState);
 }
 
+function allBlogsLoaded(state, newState) {
+    /**
+     * Updates the all blogs loaded flag within the state tree to be false
+     * @param {object} state - current state tree
+     * @param  {object} newState - new state tree
+     * @return {object} updated state tree with proper all blogs loaded flag
+     */
+    return state.merge(state, newState);
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
@@ -67,6 +74,8 @@ export default function reducer(state = Map(), action) {
         return getBlogs(state, action.state);
     case SET_ERROR:
         return setError(state, action.state);
+    case ALL_BLOGS_LOADED:
+        return allBlogsLoaded(state, action.state);
     case COMPLETE_BLOGS:
         return completeBlogs(state, action.state);
     default:
