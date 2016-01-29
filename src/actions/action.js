@@ -1,4 +1,4 @@
-import { Map, fromJS, Set } from "immutable";
+import { Map, fromJS, List } from "immutable";
 import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED } from "../schema/stateTree";
 import { getBlogs } from "../lib/blog";
 
@@ -17,10 +17,10 @@ export function setBlogsAction(blogPosts) {
         type: SET_BLOGS
     };
     if (Array.isArray(blogPosts)) {
-        action.state = Map().set(BLOGS, fromJS(blogPosts).toSet());
+        action.state = Map().set(BLOGS, fromJS(blogPosts));
     }
     else {
-        action.state = Map().set(BLOGS, Set());
+        action.state = Map().set(BLOGS, List());
     }
     return action;
 }

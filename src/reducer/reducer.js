@@ -1,4 +1,4 @@
-import { Map, Set } from "immutable";
+import { Map, List } from "immutable";
 import { BLOGS, LAST_DATE, ALL_BLOGS_LOADED } from "../schema/stateTree";
 import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS } from "../actions/action";
 
@@ -11,12 +11,12 @@ function setBlogs(state, newState) {
      */
     const currBlogs = state.get(BLOGS);
     const newBlogs = newState.get(BLOGS);
-    if ( Set.isSet(currBlogs) && Set.isSet(newBlogs) && !newBlogs.isEmpty() ) {
+    if ( List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, currBlogs.concat(newBlogs))
                 .set(LAST_DATE, newBlogs.last().get("createdOn"));
     }
-    else if ( !Set.isSet(currBlogs) && Set.isSet(newBlogs) && !newBlogs.isEmpty() ) {
+    else if ( !List.isList(currBlogs) && List.isList(newBlogs) && !newBlogs.isEmpty() ) {
         return state
                 .set(BLOGS, newBlogs)
                 .set(LAST_DATE, newBlogs.last().get("createdOn"));
