@@ -1,11 +1,12 @@
 import { Map, fromJS, List } from "immutable";
-import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED } from "../schema/stateTree";
+import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW } from "../schema/stateTree";
 import { getBlogs } from "../lib/blog";
 
 export const SET_BLOGS = "SET_BLOGS";
 export const GET_BLOGS = "GET_BLOGS";
 export const SET_ERROR = "SET_ERROR";
 export const COMPLETE_BLOGS = "COMPLETE_BLOGS";
+export const SET_CURRENT_BLOG_VIEW = "SET_CURRENT_BLOG_VIEW";
 
 export function setBlogsAction(blogPosts) {
     /**
@@ -71,6 +72,19 @@ export function allBlogsLoadedAction(state = true) {
         type: ALL_BLOGS_LOADED
     };
     action.state = Map().set(ALL_BLOGS_LOADED, state);
+    return action;
+}
+
+export function setCurrentViewAction(blogData = {}) {
+    /**
+     * Create action that sets the current view
+     * @param: {object} blogData to set as current view
+     * @return: action with current view set
+     */
+    const action = {
+        type: SET_CURRENT_BLOG_VIEW
+    };
+    action.state = Map().set(CURRENT_BLOG_VIEW, fromJS(blogData));
     return action;
 }
 

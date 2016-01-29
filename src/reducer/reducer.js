@@ -1,6 +1,6 @@
 import { Map, List } from "immutable";
 import { BLOGS, LAST_DATE, ALL_BLOGS_LOADED } from "../schema/stateTree";
-import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS } from "../actions/action";
+import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS, SET_CURRENT_BLOG_VIEW } from "../actions/action";
 
 function setBlogs(state, newState) {
     /**
@@ -66,6 +66,16 @@ function allBlogsLoaded(state, newState) {
     return state.merge(state, newState);
 }
 
+function setCurrentView(state, newState) {
+    /**
+    * Updates the all blogs loaded flag within the state tree to be false
+    * @param {object} state - current state tree
+    * @param  {object} newState - new state tree
+    * @return {object} updated state tree with proper all blogs loaded flag
+    */
+    return state.merge(state, newState);
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
@@ -78,6 +88,8 @@ export default function reducer(state = Map(), action) {
         return allBlogsLoaded(state, action.state);
     case COMPLETE_BLOGS:
         return completeBlogs(state, action.state);
+    case SET_CURRENT_BLOG_VIEW:
+        return setCurrentView(state, action.state);
     default:
         return state;
     }

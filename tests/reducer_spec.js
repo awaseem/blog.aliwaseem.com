@@ -1,6 +1,6 @@
 import { Map, fromJS, List } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction, allBlogsLoadedAction } from "../src/actions/action";
+import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction, allBlogsLoadedAction, setCurrentViewAction } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
@@ -273,6 +273,87 @@ describe("reducer", () => {
             lastDate: "test date",
             isFetching: true,
             allBlogsLoaded: true
+        }));
+    });
+
+    it("handles SET_CURRENT_BLOG_VIEW to set the current blog state", () => {
+        const blogData =  Map({
+            heading: "test",
+            author: "test test",
+            body: "test",
+            group: "test",
+            createdOn: "test date",
+            published: true
+        });
+        const initialState = Map({
+            Blogs: List([ blogData ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: false
+        });
+        const action = setCurrentViewAction(blogData);
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            Blogs: List([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: false,
+            currentBlogView: blogData
+        }));
+    });
+
+    it("handles SET_CURRENT_BLOG_VIEW to overide a current blog view", () => {
+        const initialState = Map({
+            Blogs: List([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: false,
+            currentBlogView: Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            })
+        });
+        const blogData =  Map({
+            heading: "test 1",
+            author: "test test 2",
+            body: "test 1",
+            group: "test 1",
+            createdOn: "test date 1",
+            published: true
+        });
+        const action = setCurrentViewAction(blogData);
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            Blogs: List([ Map({
+                heading: "test",
+                author: "test test",
+                body: "test",
+                group: "test",
+                createdOn: "test date",
+                published: true
+            }) ]),
+            lastDate: "test date",
+            isFetching: true,
+            allBlogsLoaded: false,
+            currentBlogView: blogData
         }));
     });
 

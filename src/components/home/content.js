@@ -46,7 +46,8 @@ export default React.createClass({
                             : <div className="blog-content" style={{ opacity: "0" }} dangerouslySetInnerHTML={{__html: this.state.text}}/>
                         }
                         {this.state.contentLoaded ?
-                            <ReactDisqusThread shortname="blogaliwaseem" identifier={this.state.data._id} title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
+                            // <ReactDisqusThread shortname="blogaliwaseem" identifier={this.state.data._id} title={this.state.data.heading} url={`https://blog.aliwaseem.com/blog/${this.state.data._id}`}/>
+                            <noscript/>
                             :
                             <noscript/>
                         }
