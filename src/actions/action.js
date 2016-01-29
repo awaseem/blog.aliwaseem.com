@@ -109,7 +109,7 @@ export function fetchBlogs(date = undefined, published = true) {
 
 function shouldFetchBlogs(state) {
     const blogs = state.get(BLOGS);
-    if (!blogs) {
+    if (blogs.isEmpty()) {
         return true;
     }
     else {

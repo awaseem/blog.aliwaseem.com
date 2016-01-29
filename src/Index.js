@@ -15,6 +15,7 @@ import "velocity-animate/velocity.ui";
 import React from "react";
 import { render } from "react-dom";
 import App from "./components/App";
+import { STATE_TREE } from "./schema/stateTree";
 
 const loggerMiddleware = createLogger();
 
@@ -23,7 +24,7 @@ const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware // middleware that logs actions
 )(createStore);
 
-const store = createStoreWithMiddleware(reducer);
+const store = createStoreWithMiddleware(reducer, STATE_TREE);
 
 window.React = React;
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { List, Map } from "immutable";
 import director from "director";
 import { connect } from "react-redux";
 import { fetchBlogsIfNeeded } from "../actions/action";
@@ -9,6 +8,7 @@ import Create from "./admin/create";
 import Content from "./home/content";
 import HomeContainer from "./home_redux/HomeContainer";
 import { checkAuth } from "../lib/auth";
+import { BLOGS } from "../schema/stateTree";
 
 const App = React.createClass({
 
@@ -62,5 +62,7 @@ const App = React.createClass({
 });
 
 export default connect( state => {
-    return { Blogs: state.get("Blogs") ? state.get("Blogs") : List() };
+    return {
+        Blogs: state.get(BLOGS)
+    };
 })(App);
