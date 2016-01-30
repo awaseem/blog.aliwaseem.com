@@ -1,6 +1,6 @@
 import { Map, fromJS, List } from "immutable";
 import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW } from "../schema/stateTree";
-import { getBlogs } from "../lib/blog";
+import { getBlogs, getBlog } from "../lib/blog";
 
 export const SET_BLOGS = "SET_BLOGS";
 export const GET_BLOGS = "GET_BLOGS";
@@ -86,6 +86,35 @@ export function setCurrentViewAction(blogData = {}) {
     };
     action.state = Map().set(CURRENT_BLOG_VIEW, fromJS(blogData));
     return action;
+}
+
+function findBlogById(blogs, id) {
+    for (const blog of blogs) {
+        if (blog.get("_id") === id) {
+            return blog;
+        }
+    }
+    return undefined;
+}
+
+export function fetchBlogById(id) {
+    return (dispatch, getState) => {
+        dispatch(getBlogsAction());
+        const blog = findBlogById(getState().get("Blogs"), id);
+        if (!blog) {
+            return getBlog(id)
+                    .then( blogData => {
+                        dispatch(setCurrentViewAction(blogData));
+                        dispatch(completeBlogsAction());
+                    })
+                    .catch(() => {
+                        dispatch(setErrorAction(`Failed to find blog with the following id: ${id}`));
+                    });
+        }
+        dispatch(setCurrentViewAction(blog));
+        dispatch(completeBlogsAction());
+        return blog;
+    };
 }
 
 export function fetchBlogs(date = undefined, published = true) {

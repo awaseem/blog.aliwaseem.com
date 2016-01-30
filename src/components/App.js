@@ -1,7 +1,7 @@
 import React from "react";
 import director from "director";
 import { connect } from "react-redux";
-import { fetchBlogsIfNeeded } from "../actions/action";
+import { fetchBlogsIfNeeded, fetchBlogById } from "../actions/action";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
@@ -26,6 +26,7 @@ const App = React.createClass({
             },
             "/blog/:id": {
                 on: (id) => {
+                    this.props.dispatch(fetchBlogById(id));
                     this.setState({ currentView: <Content id={id}/> });
                 }
             },
