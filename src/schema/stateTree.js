@@ -21,4 +21,4 @@ export const STATE_TREE = Map()
             .set(ERROR, false)
             .set(ERROR_MESSAGE, "")
             .set(ALL_BLOGS_LOADED, false)
-            .set(CURRENT_BLOG_VIEW, "");
+            .set(CURRENT_BLOG_VIEW, Map());

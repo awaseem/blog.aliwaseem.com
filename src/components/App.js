@@ -5,7 +5,7 @@ import { fetchBlogsIfNeeded, fetchBlogById } from "../actions/action";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
-import Content from "./home/content";
+import BlogContent from "./blog_post_redux/BlogContent";
 import HomeContainer from "./home_redux/HomeContainer";
 import { checkAuth } from "../lib/auth";
 import { BLOGS } from "../schema/stateTree";
@@ -27,7 +27,7 @@ const App = React.createClass({
             "/blog/:id": {
                 on: (id) => {
                     this.props.dispatch(fetchBlogById(id));
-                    this.setState({ currentView: <Content id={id}/> });
+                    this.setState({ currentView: <BlogContent/> });
                 }
             },
             // Admin routes, each route is checked to ensure the user is logged. The reason

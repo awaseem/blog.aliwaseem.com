@@ -10,3 +10,13 @@ export const Fade = React.createClass({
         );
     }
 });
+
+export const FadeOnMount = React.createClass({
+    render: function () {
+        return (
+            <VelocityTransitionGroup runOnMount enter={{ animation: "fadeIn" }} leave={{ animation: "fadeOut" }}>
+                {this.props.children}
+            </VelocityTransitionGroup>
+        );
+    }
+});
