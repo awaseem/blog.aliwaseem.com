@@ -1,7 +1,7 @@
 import React from "react";
 import director from "director";
 import { connect } from "react-redux";
-import { fetchBlogsIfNeeded, fetchBlogById } from "../actions/action";
+import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction } from "../actions/action";
 import Signin from "./admin/signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
@@ -48,7 +48,9 @@ const App = React.createClass({
                 this.setState({ currentView: <div>404</div> });
             }
         }).configure({
-            html5history: true
+            html5history: true,
+            // Do any state resets in here, this way we don't save states from one view to another
+            before: () => this.props.dispatch(setErrorAction("", false))
         });
         router.init();
     },

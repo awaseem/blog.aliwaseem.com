@@ -38,7 +38,7 @@ export function getBlogsAction() {
     return action;
 }
 
-export function setErrorAction(message = "Unknown error has occured!") {
+export function setErrorAction(message = "Unknown error has occured!", errorState = true) {
     /**
      * Create action that sets the error with message specified
      * @param: {string} message - error message to set
@@ -47,7 +47,7 @@ export function setErrorAction(message = "Unknown error has occured!") {
     const action = {
         type: SET_ERROR
     };
-    action.state = Map().set(ERROR, true).set(ERROR_MESSAGE, message).set(IS_FETCHING, false);
+    action.state = Map().set(ERROR, errorState).set(ERROR_MESSAGE, message).set(IS_FETCHING, false);
     return action;
 }
 
