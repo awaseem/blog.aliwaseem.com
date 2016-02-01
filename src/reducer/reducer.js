@@ -1,6 +1,6 @@
 import { Map, List } from "immutable";
-import { BLOGS, LAST_DATE, ALL_BLOGS_LOADED } from "../schema/stateTree";
-import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS, SET_CURRENT_BLOG_VIEW } from "../actions/action";
+import { BLOGS, LAST_DATE } from "../schema/stateTree";
+import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS, SET_CURRENT_BLOG_VIEW, ARE_ALL_BLOGS_LOADED } from "../actions/action";
 
 function setBlogs(state, newState) {
     /**
@@ -84,7 +84,7 @@ export default function reducer(state = Map(), action) {
         return getBlogs(state, action.state);
     case SET_ERROR:
         return setError(state, action.state);
-    case ALL_BLOGS_LOADED:
+    case ARE_ALL_BLOGS_LOADED:
         return allBlogsLoaded(state, action.state);
     case COMPLETE_BLOGS:
         return completeBlogs(state, action.state);

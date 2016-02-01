@@ -6,6 +6,7 @@ export const SET_BLOGS = "SET_BLOGS";
 export const GET_BLOGS = "GET_BLOGS";
 export const SET_ERROR = "SET_ERROR";
 export const COMPLETE_BLOGS = "COMPLETE_BLOGS";
+export const ARE_ALL_BLOGS_LOADED = "ARE_ALL_BLOGS_LOADED";
 export const SET_CURRENT_BLOG_VIEW = "SET_CURRENT_BLOG_VIEW";
 
 export function setBlogsAction(blogPosts) {
@@ -69,7 +70,7 @@ export function allBlogsLoadedAction(state = true) {
      * @return: action with all blogs state set to true by default
      */
     const action = {
-        type: ALL_BLOGS_LOADED
+        type: ARE_ALL_BLOGS_LOADED
     };
     action.state = Map().set(ALL_BLOGS_LOADED, state);
     return action;
