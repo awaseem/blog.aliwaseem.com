@@ -1,5 +1,5 @@
 import { Map, fromJS, List } from "immutable";
-import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW } from "../schema/stateTree";
+import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW, ADMIN_TOKEN } from "../schema/stateTree";
 import { getBlogs, getBlog } from "../lib/blog";
 
 export const SET_BLOGS = "SET_BLOGS";
@@ -8,6 +8,7 @@ export const SET_ERROR = "SET_ERROR";
 export const COMPLETE_BLOGS = "COMPLETE_BLOGS";
 export const ARE_ALL_BLOGS_LOADED = "ARE_ALL_BLOGS_LOADED";
 export const SET_CURRENT_BLOG_VIEW = "SET_CURRENT_BLOG_VIEW";
+export const SET_ADMIN_TOKEN = "SET_ADMIN_TOKEN";
 
 export function setBlogsAction(blogPosts) {
     /**
@@ -86,6 +87,19 @@ export function setCurrentViewAction(blogData = {}) {
         type: SET_CURRENT_BLOG_VIEW
     };
     action.state = Map().set(CURRENT_BLOG_VIEW, fromJS(blogData));
+    return action;
+}
+
+export function setAdminToken(adminToken = "") {
+    /**
+     * Create action that sets the jwt token
+     * @param: {string} admin token
+     * @return: action with admin token set
+     */
+    const action = {
+        type: SET_ADMIN_TOKEN
+    };
+    action.state = Map().set(ADMIN_TOKEN, adminToken);
     return action;
 }
 

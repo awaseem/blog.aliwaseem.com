@@ -1,6 +1,14 @@
 import { Map, List } from "immutable";
 import { BLOGS, LAST_DATE } from "../schema/stateTree";
-import { SET_BLOGS, GET_BLOGS, SET_ERROR, COMPLETE_BLOGS, SET_CURRENT_BLOG_VIEW, ARE_ALL_BLOGS_LOADED } from "../actions/action";
+import {
+    SET_BLOGS,
+    GET_BLOGS,
+    SET_ERROR,
+    COMPLETE_BLOGS,
+    SET_CURRENT_BLOG_VIEW,
+    ARE_ALL_BLOGS_LOADED,
+    SET_ADMIN_TOKEN
+} from "../actions/action";
 
 function setBlogs(state, newState) {
     /**
@@ -76,6 +84,16 @@ function setCurrentView(state, newState) {
     return state.merge(state, newState);
 }
 
+function setAdminToken(state, newState) {
+    /**
+    * Updates the admin token within the state tree to be a value
+    * @param {object} state - current state tree
+    * @param  {object} newState - new state tree
+    * @return {object} updated state tree with proper admin tokenn
+     */
+    return state.merge(state, newState);
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
@@ -90,6 +108,8 @@ export default function reducer(state = Map(), action) {
         return completeBlogs(state, action.state);
     case SET_CURRENT_BLOG_VIEW:
         return setCurrentView(state, action.state);
+    case SET_ADMIN_TOKEN:
+        return setAdminToken(state, action.state);
     default:
         return state;
     }

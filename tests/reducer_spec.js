@@ -1,10 +1,18 @@
 import { Map, fromJS, List } from "immutable";
 import { expect } from "chai";
-import { setBlogsAction, getBlogsAction, setErrorAction, completeBlogsAction, allBlogsLoadedAction, setCurrentViewAction } from "../src/actions/action";
+import {
+    setBlogsAction,
+    getBlogsAction,
+    setErrorAction,
+    completeBlogsAction,
+    allBlogsLoadedAction,
+    setCurrentViewAction,
+    setAdminToken
+} from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
 
-describe("reducer", () => {
+describe("reducer spec", () => {
 
     it("handles SET_BLOGS", () => {
         const initialState = Map();
@@ -356,5 +364,25 @@ describe("reducer", () => {
             currentBlogView: blogData
         }));
     });
+
+    it("handles SET_ADMIN_TOKEN", () => {
+        const initialState = Map();
+        const action = setAdminToken("this is a test token");
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            adminToken: "this is a test token"
+        }));
+    });
+
+    it("handles SET_ADMIN_TOKEN when already set", () => {
+        const initialState = Map({
+            adminToken: "not a test"
+        });
+        const action = setAdminToken("this is a test token");
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            adminToken: "this is a test token"
+        }));
+    })
 
 });
