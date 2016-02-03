@@ -2,7 +2,7 @@ import React from "react";
 import director from "director";
 import { connect } from "react-redux";
 import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction } from "../actions/action";
-import Signin from "./admin/signin";
+import Signin from "./admin_redux/Signin";
 import Dashboard from "./admin/dashboard";
 import Create from "./admin/create";
 import BlogContent from "./blog_post_redux/BlogContent";

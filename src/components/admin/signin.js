@@ -113,7 +113,7 @@ export default React.createClass({
                     </div>
                     <div className="row">
                         <div className="four columns offset-by-four">
-                            { this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }
+                            {/*{ this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }*/}
                         </div>
                     </div>
                 </form>
