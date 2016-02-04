@@ -1,13 +1,27 @@
 import React from "react";
+import director from "director";
+import { connect } from "react-redux";
+import { signInAdmin } from "../../actions/action";
+import ErrorMessage from "../messages/error";
+import { ADMIN_TOKEN, ERROR, ERROR_MESSAGE } from "../../schema/stateTree";
 
 const Signin = React.createClass({
+
+    submitHandler: function (e) {
+        e.preventDefault();
+        this.props.dispatch(signInAdmin(this.refs.username.value.trim(),
+                                        this.refs.password.value.trim(),
+                                        () => director.Router().setRoute("/admin/dashboard")
+        ));
+    },
+
     render: function () {
         return (
             <div id="signin" className="container">
                 <div className="row">
                     <h3 className="center aligned header">Welcome Back!</h3>
                 </div>
-                <form onSubmit={this.handleLogin}>
+                <form onSubmit={this.submitHandler}>
                     <div className="row">
                         <div className="four columns  offset-by-four">
                             <label>Username</label>
@@ -27,13 +41,22 @@ const Signin = React.createClass({
                     </div>
                     <div className="row">
                         <div className="four columns offset-by-four">
-                            {/*{ this.state.error.state ? <ErrorMessage errorMessage={this.state.error.message}/> : <noscript/> }*/}
+                            { this.props.error ? <ErrorMessage errorMessage={this.props.errorMessage}/> : <noscript/> }
                         </div>
                     </div>
                 </form>
             </div>
         );
     }
+
 });
 
-export default Signin;
+function mapStateToProps(state) {
+    return {
+        adminToken: state.get(ADMIN_TOKEN),
+        error: state.get(ERROR),
+        errorMessage: state.get(ERROR_MESSAGE)
+    };
+}
+
+export default connect(mapStateToProps)(Signin);

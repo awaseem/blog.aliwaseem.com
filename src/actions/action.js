@@ -1,6 +1,8 @@
 import { Map, fromJS, List } from "immutable";
 import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW, ADMIN_TOKEN } from "../schema/stateTree";
 import { getBlogs, getBlog } from "../lib/blog";
+import { login } from "../lib/auth";
+import tokenStorage from "../lib/tokenStorage";
 
 export const SET_BLOGS = "SET_BLOGS";
 export const GET_BLOGS = "GET_BLOGS";
@@ -110,6 +112,20 @@ function findBlogById(blogs, id) {
         }
     }
     return undefined;
+}
+
+export function signInAdmin(username = "", password = "", cb = () => "") {
+    return (dispatch) => {
+        return login(username, password)
+                .then( userToken => {
+                    dispatch(setAdminToken(userToken.token));
+                    tokenStorage.setToken(userToken.token);
+                    cb();
+                })
+                .catch(() => {
+                    dispatch(setErrorAction("Failed to login user!"));
+                });
+    };
 }
 
 export function fetchBlogById(id) {
