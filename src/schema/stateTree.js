@@ -6,6 +6,8 @@ export const IS_FETCHING = "isFetching";
 
 export const LAST_DATE = "lastDate";
 
+export const SUCCESS = "success";
+
 export const ERROR = "error";
 
 export const ERROR_MESSAGE = "errorMessage";
@@ -20,6 +22,7 @@ export const STATE_TREE = Map()
             .set(BLOGS, List())
             .set(IS_FETCHING, false)
             .set(LAST_DATE, "")
+            .set(SUCCESS, false)
             .set(ERROR, false)
             .set(ERROR_MESSAGE, "")
             .set(ALL_BLOGS_LOADED, false)

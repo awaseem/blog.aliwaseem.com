@@ -7,7 +7,8 @@ import {
     COMPLETE_BLOGS,
     SET_CURRENT_BLOG_VIEW,
     ARE_ALL_BLOGS_LOADED,
-    SET_ADMIN_TOKEN
+    SET_ADMIN_TOKEN,
+    SET_SUCCESS
 } from "../actions/action";
 
 function setBlogs(state, newState) {
@@ -94,6 +95,16 @@ function setAdminToken(state, newState) {
     return state.merge(state, newState);
 }
 
+function setSuccess(state, newState) {
+    /**
+    * Updates the success state within the state tree to be a value
+    * @param {object} state - current state tree
+    * @param  {object} newState - new state tree
+    * @return {object} updated state tree with proper success state
+     */
+    return state.merge(state, newState);
+}
+
 export default function reducer(state = Map(), action) {
     switch (action.type) {
     case SET_BLOGS:
@@ -110,6 +121,8 @@ export default function reducer(state = Map(), action) {
         return setCurrentView(state, action.state);
     case SET_ADMIN_TOKEN:
         return setAdminToken(state, action.state);
+    case SET_SUCCESS:
+        return setSuccess(state, action.state);
     default:
         return state;
     }

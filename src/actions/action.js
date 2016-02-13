@@ -1,6 +1,6 @@
 import { Map, fromJS, List } from "immutable";
-import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW, ADMIN_TOKEN } from "../schema/stateTree";
-import { getBlogs, getBlog } from "../lib/blog";
+import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW, ADMIN_TOKEN, SUCCESS } from "../schema/stateTree";
+import { getBlogs, getBlog, updateBlog } from "../lib/blog";
 import { login } from "../lib/auth";
 import tokenStorage from "../lib/tokenStorage";
 
@@ -11,6 +11,7 @@ export const COMPLETE_BLOGS = "COMPLETE_BLOGS";
 export const ARE_ALL_BLOGS_LOADED = "ARE_ALL_BLOGS_LOADED";
 export const SET_CURRENT_BLOG_VIEW = "SET_CURRENT_BLOG_VIEW";
 export const SET_ADMIN_TOKEN = "SET_ADMIN_TOKEN";
+export const SET_SUCCESS = "SET_SUCCESS";
 
 export function setBlogsAction(blogPosts) {
     /**
@@ -46,12 +47,26 @@ export function setErrorAction(message = "Unknown error has occured!", errorStat
     /**
      * Create action that sets the error with message specified
      * @param: {string} message - error message to set
+     * @param: {boolean} errorState - boolean state for the error message
      * @return: action with proper error states filled
      */
     const action = {
         type: SET_ERROR
     };
     action.state = Map().set(ERROR, errorState).set(ERROR_MESSAGE, message).set(IS_FETCHING, false);
+    return action;
+}
+
+export function setSuccessAction(successState = true) {
+    /**
+     * Create action that sets the success
+     * @param: {boolean} successState - success boolean
+     * @return: action with proper error states filled
+     */
+    const action = {
+        type: SET_SUCCESS
+    };
+    action.state = Map().set(SUCCESS, successState);
     return action;
 }
 
@@ -125,6 +140,18 @@ export function signInAdmin(username = "", password = "", cb = () => "") {
                 .catch(() => {
                     dispatch(setErrorAction("Failed to login user!"));
                 });
+    };
+}
+
+export function updateBlogById(blogId, heading, body) {
+    return (dispatch) => {
+        return updateBlog(blogId, heading, body)
+            .then( () => {
+
+            })
+            .catch(() => {
+                dispatch(setErrorAction(`Failed to update blog!`));
+            });
     };
 }
 

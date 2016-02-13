@@ -20,7 +20,7 @@
     "chai"
   ],
   "scripts": {
-    "test": "REPORTER=nyan; mocha --compilers js:babel-core/register --require ./tests/test_helper.js 'tests/**/*.@(js|jsx)'",
+    "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js 'tests/**/*.@(js|jsx)'",
     "watch": "webpack-dev-server",
     "build": "webpack"
   },

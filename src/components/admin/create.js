@@ -37,25 +37,22 @@ export default React.createClass({
                     this.refs.textarea.value = data.body;
                     this.convertToMarkdown();
                 })
-                .catch((data) => {
+                .catch(() => {
                     this.setState({
                         error: "Failed to obtain blog for editing"
                     });
                 });
         }
-        $('#marked-editor')
-            .transition('fade in');
     },
 
     updateExistBlog: function () {
         updateBlog(this.state.editId , this.refs.heading.value ? this.refs.heading.value : "<NO HEADING>", this.refs.textarea.value)
-            .then((data) => {
+            .then(() => {
                 this.setState({
                     success: "Sucessfully saved blog!"
                 });
             })
             .catch((err) => {
-                console.error(err);
                 if (err.response) {
                     err.response.json()
                         .then((errResponse) => {
@@ -81,7 +78,6 @@ export default React.createClass({
                 });
             })
             .catch((err) => {
-                console.error(err);
                 if (err.response) {
                     err.response.json()
                         .then((errResponse) => {

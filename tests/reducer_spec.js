@@ -7,7 +7,8 @@ import {
     completeBlogsAction,
     allBlogsLoadedAction,
     setCurrentViewAction,
-    setAdminToken
+    setAdminToken,
+    setSuccessAction
 } from "../src/actions/action";
 
 import reducer from "../src/reducer/reducer";
@@ -383,6 +384,15 @@ describe("reducer spec", () => {
         expect(nextState).to.equal(Map({
             adminToken: "this is a test token"
         }));
-    })
+    });
+
+    it("handles SET_SUCCESS", () => {
+        const initialState = Map();
+        const action = setSuccessAction();
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(Map({
+            success: true
+        }));
+    });
 
 });
