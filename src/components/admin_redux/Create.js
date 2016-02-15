@@ -28,6 +28,14 @@ const blogPostCreate = React.createClass({
         });
     },
 
+    componentDidMount: function () {
+        if (!this.props.currentView.isEmpty()) {
+            this.refs.heading.value = this.props.currentView.get("heading");
+            this.refs.textarea.value = this.props.currentView.get("body");
+            this.convertToMarkdown();
+        }
+    },
+
     componentWillReceiveProps: function (nextProps) {
         if (!nextProps.currentView.isEmpty() && this.props.currentView.get("_id") !== nextProps.currentView.get("_id")) {
             this.refs.heading.value = nextProps.currentView.get("heading");

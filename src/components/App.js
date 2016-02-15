@@ -3,7 +3,7 @@ import director from "director";
 import { connect } from "react-redux";
 import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction, setSuccessAction, setCurrentViewAction } from "../actions/action";
 import Signin from "./admin_redux/Signin";
-import Dashboard from "./admin/dashboard";
+import Dashboard from "./admin_redux/Dashboard";
 import Create from "./admin_redux/Create";
 import BlogContent from "./blog_post_redux/BlogContent";
 import HomeContainer from "./home_redux/HomeContainer";
@@ -43,6 +43,7 @@ const App = React.createClass({
                 this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <Signin/> });
             },
             "/admin/dashboard": () => {
+                this.props.dispatch(fetchBlogsIfNeeded());
                 this.setState({ currentView: checkAuth() ? <Dashboard/> : <Signin/> });
             },
             "/.*": () => {
