@@ -2,36 +2,28 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: [
-        "webpack-dev-server/client?http://localhost:8080",
-        "webpack/hot/only-dev-server",
-        "./src/Index.js"
-    ],
+    entry: "./src/Index.js",
     module: {
         loaders: [{
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            loader: "react-hot!babel"
+            loader: "babel"
         }, {
             test: /\.css$/, // Only .css files
-            loader: "react-hot!style!css" // Run both loaders
+            loader: "style!css" // Run both loaders
         }]
     },
     resolve: {
         extensions: ["", ".js", ".jsx"]
     },
     output: {
-        path: __dirname + "/dist",
+        path: __dirname + "/build",
         publicPath: "/",
         filename: "bundle.js"
     },
-    devServer: {
-        contentBase: "./dist",
-        hot: true
-    },
     plugins: [
         new webpack.DefinePlugin({
-            DEBUG: true 
+            DEBUG: false
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({

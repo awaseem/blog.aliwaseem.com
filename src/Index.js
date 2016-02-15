@@ -19,10 +19,18 @@ import { STATE_TREE } from "./schema/stateTree";
 
 const loggerMiddleware = createLogger();
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware, // lets us dispatch() functions
-  loggerMiddleware // middleware that logs actions
-)(createStore);
+let middlewares= [];
+
+/*eslint-disable */
+if (DEBUG) {
+    middlewares = [...middlewares, thunkMiddleware, loggerMiddleware];
+}
+else {
+    middlewares = [...middlewares, thunkMiddleware];
+}
+/*eslint-enable */
+
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 
 const store = createStoreWithMiddleware(reducer, STATE_TREE);
 
