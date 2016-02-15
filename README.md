@@ -1,6 +1,8 @@
 # Blog.aliwaseem.com
 
-A place to share my random thoughts.
+[![Build Status](https://travis-ci.org/awaseem/blog-api.svg?branch=master)](https://travis-ci.org/awaseem/blog-api)
+
+A place to share my random thoughts. (Now with more redux!)
 
 ## Setup
 
@@ -10,7 +12,7 @@ git clone https://github.com/awaseem/blog.aliwaseem.com
 ```
 Install and build dependencies:
 ```
-npm install; npm run build
+npm install; npm run deploy
 ```
 Start the development server:
 ```
