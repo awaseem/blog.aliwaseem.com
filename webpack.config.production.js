@@ -23,7 +23,8 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            DEBUG: false
+            DEBUG: false,
+            "process.env.NODE_ENV": "'production'"
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
