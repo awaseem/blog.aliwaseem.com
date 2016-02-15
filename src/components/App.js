@@ -1,14 +1,16 @@
-import React from 'react';
+import React from "react";
 import director from "director";
-import Signin from "./admin/signin";
-import Dashboard from "./admin/dashboard";
-import Create from "./admin/create";
-import Header from "./home/header";
-import Content from "./home/content";
-import Posts from "./home/posts";
+import { connect } from "react-redux";
+import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction, setSuccessAction, setCurrentViewAction } from "../actions/action";
+import Signin from "./admin_redux/Signin";
+import Dashboard from "./admin_redux/Dashboard";
+import Create from "./admin_redux/Create";
+import BlogContent from "./blog_post_redux/BlogContent";
+import HomeContainer from "./home_redux/HomeContainer";
 import { checkAuth } from "../lib/auth";
+import { BLOGS } from "../schema/stateTree";
 
-export default React.createClass({
+const App = React.createClass({
 
     getInitialState: function () {
         return { currentView: <noscript/> };
@@ -18,21 +20,18 @@ export default React.createClass({
         let router = director.Router({
             "/": {
                 on: () => {
-                    this.setState({ currentView: <Posts/> });
+                    this.props.dispatch(fetchBlogsIfNeeded());
+                    this.setState({ currentView: <HomeContainer/> });
                 }
             },
             "/blog/:id": {
                 on: (id) => {
-                    this.setState({ currentView: <Content id={id}/> });
-                }
-            },
-            "/about": {
-                on: () => {
-                    this.setState({ currentView: <About/> });
+                    this.props.dispatch(fetchBlogById(id));
+                    this.setState({ currentView: <BlogContent/> });
                 }
             },
             // Admin routes, each route is checked to ensure the user is logged. The reason
-            // there isn't a before route is that routes actaully leak UI before auth
+            // there isn"t a before route is that routes actaully leak UI before auth
             "/admin/signin": () => {
                 this.setState({ currentView: <Signin/> });
             },
@@ -40,16 +39,24 @@ export default React.createClass({
                 this.setState({ currentView: checkAuth() ? <Create/> : <Signin/> });
             },
             "/admin/create/:id": (id) => {
+                this.props.dispatch(fetchBlogById(id));
                 this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <Signin/> });
             },
             "/admin/dashboard": () => {
+                this.props.dispatch(fetchBlogsIfNeeded());
                 this.setState({ currentView: checkAuth() ? <Dashboard/> : <Signin/> });
             },
             "/.*": () => {
                 this.setState({ currentView: <div>404</div> });
             }
         }).configure({
-            html5history: true
+            html5history: true,
+            // Do any state resets in here, this way we don't save states from one view to another
+            before: () => {
+                this.props.dispatch(setErrorAction("", false));
+                this.props.dispatch(setSuccessAction(false));
+                this.props.dispatch(setCurrentViewAction());
+            }
         });
         router.init();
     },
@@ -62,3 +69,9 @@ export default React.createClass({
         );
     }
 });
+
+export default connect( state => {
+    return {
+        Blogs: state.get(BLOGS)
+    };
+})(App);

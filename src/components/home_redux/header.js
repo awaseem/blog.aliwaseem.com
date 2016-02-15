@@ -1,11 +1,6 @@
-import React from 'react';
+import React from "react";
 
 export default React.createClass({
-
-    componentDidMount: function () {
-        // $("#blog-header")
-        //     .transition('fade in');
-    },
 
     render: function () {
         return (

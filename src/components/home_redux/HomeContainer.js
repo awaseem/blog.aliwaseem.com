@@ -1,11 +1,13 @@
 import React from "react";
+import Header from "./header";
+import BlogPosts from "./BlogPosts";
 
 export default React.createClass({
     render: function () {
         return (
-            <div className="error-message">
-                <div className="header">Error!</div>
-                <p>{this.props.errorMessage}</p>
+            <div>
+                <Header/>
+                <BlogPosts/>
             </div>
         );
     }

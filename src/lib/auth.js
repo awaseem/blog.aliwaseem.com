@@ -16,7 +16,6 @@ let checkAuth = () => {
             }
         }
         catch (err) {
-            console.error(err);
             return false;
         }
     }

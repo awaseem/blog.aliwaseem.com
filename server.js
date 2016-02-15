@@ -6,15 +6,13 @@ var express = require("express");
 
 var app = express();
 
-app.use("/node_modules",express.static(__dirname + "/node_modules"));
-app.use("/public",express.static(__dirname + "/public"));
-app.use("/dist",express.static(__dirname + "/dist"));
+app.use("/bundle.js",express.static(__dirname + "/build/bundle.js"));
 
 
-app.get('*', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get("*", function (req, res) {
+    res.sendFile(__dirname + "/build/index.html");
 });
 
 app.listen(3000, function () {
-    console.log("Running on localhost:3000");
+    console.log( "Running on localhost:3000" );
 });

@@ -4,7 +4,7 @@ RUN mkdir src/
 
 COPY . /src
 
-RUN cd /src; npm install; npm run build
+RUN cd /src; npm install; npm run deploy
 
 ENV NODE_ENV production
 
