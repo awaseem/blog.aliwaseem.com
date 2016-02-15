@@ -1,6 +1,6 @@
 import { Map, fromJS, List } from "immutable";
 import { BLOGS, IS_FETCHING, ERROR, ERROR_MESSAGE, ALL_BLOGS_LOADED, CURRENT_BLOG_VIEW, ADMIN_TOKEN, SUCCESS } from "../schema/stateTree";
-import { getBlogs, getBlog, updateBlog } from "../lib/blog";
+import { getBlogs, getBlog, updateBlog, saveBlog } from "../lib/blog";
 import { login } from "../lib/auth";
 import tokenStorage from "../lib/tokenStorage";
 
@@ -147,11 +147,22 @@ export function updateBlogById(blogId, heading, body) {
     return (dispatch) => {
         return updateBlog(blogId, heading, body)
             .then( () => {
-
+                dispatch(setSuccessAction());
             })
             .catch(() => {
                 dispatch(setErrorAction(`Failed to update blog!`));
             });
+    };
+}
+
+export function createBlog(heading, body) {
+    return (dispatch) => {
+        return saveBlog(heading, body)
+            .then( blogData => {
+                dispatch(setCurrentViewAction(blogData.data));
+                dispatch(setSuccessAction());
+            })
+            .catch(() => dispatch(setErrorAction(`Failed to update blog!`)) );
     };
 }
 

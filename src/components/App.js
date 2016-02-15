@@ -1,10 +1,10 @@
 import React from "react";
 import director from "director";
 import { connect } from "react-redux";
-import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction, setSuccessAction } from "../actions/action";
+import { fetchBlogsIfNeeded, fetchBlogById, setErrorAction, setSuccessAction, setCurrentViewAction } from "../actions/action";
 import Signin from "./admin_redux/Signin";
 import Dashboard from "./admin/dashboard";
-import Create from "./admin/create";
+import Create from "./admin_redux/Create";
 import BlogContent from "./blog_post_redux/BlogContent";
 import HomeContainer from "./home_redux/HomeContainer";
 import { checkAuth } from "../lib/auth";
@@ -39,6 +39,7 @@ const App = React.createClass({
                 this.setState({ currentView: checkAuth() ? <Create/> : <Signin/> });
             },
             "/admin/create/:id": (id) => {
+                this.props.dispatch(fetchBlogById(id));
                 this.setState({ currentView: checkAuth() ? <Create editId={id}/> : <Signin/> });
             },
             "/admin/dashboard": () => {
@@ -53,6 +54,7 @@ const App = React.createClass({
             before: () => {
                 this.props.dispatch(setErrorAction("", false));
                 this.props.dispatch(setSuccessAction(false));
+                this.props.dispatch(setCurrentViewAction());
             }
         });
         router.init();
