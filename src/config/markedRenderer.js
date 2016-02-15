@@ -8,20 +8,20 @@ let getMod = (message) => {
     let modMatch = re.exec(message);
     if (modMatch !== null) {
         switch (modMatch[1]) {
-            case "center":
-                mod = "center aligned";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            case "right":
-                mod = "right aligned";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            case "left":
-                mod = "left aligned";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            default:
-                mod = "";
+        case "center":
+            mod = "center aligned";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        case "right":
+            mod = "right aligned";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        case "left":
+            mod = "left aligned";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        default:
+            mod = "";
         }
         return {
             mod: mod,
@@ -42,24 +42,24 @@ let getModImage = (message) => {
     let modMatch = re.exec(message);
     if (modMatch !== null) {
         switch (modMatch[1]) {
-            case "small":
-                mod = "small";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            case "medium":
-                mod = "medium";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            case "large":
-                mod = "large";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            case "fluid":
-                mod = "u-max-full-width";
-                message = message.replace(/{([a-z]+)}/g, "");
-                break;
-            default:
-                mod = "u-max-full-width";
+        case "small":
+            mod = "small";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        case "medium":
+            mod = "medium";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        case "large":
+            mod = "large";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        case "fluid":
+            mod = "u-max-full-width";
+            message = message.replace(/{([a-z]+)}/g, "");
+            break;
+        default:
+            mod = "u-max-full-width";
         }
         return {
             mod: mod,

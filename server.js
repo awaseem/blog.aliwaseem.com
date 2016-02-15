@@ -13,6 +13,6 @@ app.get("*", function (req, res) {
     res.sendFile(__dirname + "/build/index.html");
 });
 
-app.listen(3002, function () {
+app.listen(3000, function () {
     console.log( "Running on localhost:3000" );
 });
