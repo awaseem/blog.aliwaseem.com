@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../home/header";
+import Header from "./header";
 import BlogPosts from "./BlogPosts";
 
 export default React.createClass({
