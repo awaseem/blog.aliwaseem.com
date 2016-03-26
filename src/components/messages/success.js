@@ -2,8 +2,8 @@ import React from "react";
 
 export default React.createClass({
     componentDidMount: function () {
-        $('.ui.success.message')
-            .transition('fade up in');
+        $(".ui.success.message")
+            .transition("fade up in");
     },
 
     render: function () {

@@ -20,6 +20,7 @@
     "chai"
   ],
   "scripts": {
+    "eslint": "eslint -c .eslintrc.json src tests",
     "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js 'tests/**/*.@(js|jsx)'",
     "watch": "webpack-dev-server",
     "deploy": "NODE_ENV=production webpack -p --config webpack.config.production.js"
@@ -62,6 +63,7 @@
     "chai-immutable": "^1.5.3",
     "css-loader": "^0.23.1",
     "cssnano": "^3.0.0",
+    "eslint": "^2.5.1",
     "eslint-plugin-react": "^3.15.0",
     "html-webpack-plugin": "^2.7.1",
     "imagemin-pngquant": "^4.2.0",

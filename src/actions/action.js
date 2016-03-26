@@ -150,7 +150,7 @@ export function updateBlogById(blogId, heading, body) {
                 dispatch(setSuccessAction());
             })
             .catch(() => {
-                dispatch(setErrorAction(`Failed to update blog!`));
+                dispatch(setErrorAction("Failed to update blog!"));
             });
     };
 }
@@ -162,7 +162,7 @@ export function createBlog(heading, body) {
                 dispatch(setCurrentViewAction(blogData.data));
                 dispatch(setSuccessAction());
             })
-            .catch(() => dispatch(setErrorAction(`Failed to update blog!`)) );
+            .catch(() => dispatch(setErrorAction("Failed to update blog!")) );
     };
 }
 

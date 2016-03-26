@@ -32,7 +32,7 @@ export default React.createClass({
         if (confirm(`Are you sure you want to change publish state from ${this.state.publish} to ${!this.state.publish} for: ${this.props.blogHeading}?`)) {
             publishBlog(this.props.blogId, !this.state.publish)
                 .then(() => {
-                    alert(`Changed status!`);
+                    alert("Changed status!");
                     this.setState({
                         publish: !this.state.publish
                     });
